@@ -11,7 +11,7 @@ export default function createPropertyReducer(actionType, initialState, debug) {
         }
 
         if (debug) {
-            console.log(action.type, action.value);
+            console.log('redux', action.type, action.value);
         }
 
         return action.value;

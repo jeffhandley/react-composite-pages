@@ -1,52 +1,41 @@
 import React from 'react';
-import Container from './components/Container';
+import ServerWrapper from '../../components/ServerWrapper';
+import bindActionCreators from './actions/bindActionCreators';
+import { provideContext} from 'fluxible-addons-react';
+import Fluxible from 'fluxible';
 import Message from './components/Message';
 import stores from './stores';
 import * as actions from './actions';
-import Fluxible from 'fluxible';
-import { provideContext } from 'fluxible-addons-react';
 
 function noLoad(actionContext, payload, done) {
     done();
 }
 
 export default function loadMessagePage(callback, initialState) {
-    const contextTypes = { };
-
-    const component = provideContext(Message, contextTypes);
-
-    const app = new Fluxible({ component });
+    const app = new Fluxible({ component: provideContext(Message) });
     stores.forEach((store) => app.registerStore(store));
+
+    const Component = app.getComponent();
 
     // Create the page context and execute the load action
     const appContext = app.createContext();
 
-    appContext.executeAction(actions.load || noLoad, initialState, () => {
-        const MessageComponent = app.getComponent();
+    const MessageComponent = () => {
         const context = appContext.getComponentContext();
+        const state = app.dehydrate(appContext) || { };
+        const pageState = `
+            window.PAGE_STATE = ${JSON.stringify(state)};
+        `;
 
-        const messageComponent = () => {
-            const state = app.dehydrate(appContext);
-            const pageState = `
-                window.PAGE_STATE = ${JSON.stringify(state || { })};
-            `;
+        return (
+            <ServerWrapper {...{pageState}}>
+                <Component {...{context}} />
+            </ServerWrapper>
+        );
+    };
 
-            return (
-                <Container {...{pageState}}>
-                    <MessageComponent {...{context}} />
-                </Container>
-            );
-        };
-
-        const actionCreators = {
-            setMessage(message, done) {
-                appContext.executeAction(actions.setMessage, message, done);
-            }
-        };
-
-        callback(null, {
-            ...actionCreators,
-            Message: messageComponent
-        });
+    callback(null, {
+        ...bindActionCreators(actions, appContext.executeAction.bind(appContext)),
+        Message: MessageComponent
     });
 }

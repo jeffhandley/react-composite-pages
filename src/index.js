@@ -5,7 +5,7 @@ import ReactDOMServer from 'react-dom/server';
 const app = express();
 
 app.get('/nui/redux', (req, res) => {
-    const { default: loadMessagePage } = require('./pages/redux/loadMessagePage');
+    const { default: loadMessagePage } = require('./pages/redux/server');
 
     loadMessagePage((err, messagePage) => {
         messagePage.setMessage('Loaded from express');
@@ -28,7 +28,7 @@ app.get('/nui/redux', (req, res) => {
 });
 
 app.get('/nui/fluxible', (req, res) => {
-    const { default: loadMessagePage } = require('./pages/fluxible/loadMessagePage');
+    const { default: loadMessagePage } = require('./pages/fluxible/server');
 
     loadMessagePage((err, messagePage) => {
         messagePage.setMessage('Loaded from express', () => {

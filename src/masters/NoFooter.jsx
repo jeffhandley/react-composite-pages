@@ -3,13 +3,13 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 class NoFooter extends Component {
     render() {
-        const { body, bodyId, clientSrc, state, stateId, title } = this.props;
+        const { components, ids, clientSrc, state, title } = this.props;
 
         const html = {
-            body: renderToStaticMarkup(body)
+            body: components.body && renderToStaticMarkup(components.body)
         };
 
-        const stateScript = stateId && `window.${stateId} = ${JSON.stringify(state)};`;
+        const stateScript = ids.state && `window.${ids.state} = ${JSON.stringify(state)};`;
 
         return (
             <html>
@@ -18,7 +18,7 @@ class NoFooter extends Component {
                 </head>
                 <body>
                     <div style={{ backgroundColor: '#343434', color: 'white', height: 100 }}>Top Nav</div>
-                    <div dangerouslySetInnerHTML={{ __html: html.body }} id={ bodyId || 'page-body' } />
+                    <div dangerouslySetInnerHTML={{ __html: html.body }} id={ ids.body } />
                     { stateScript && <script dangerouslySetInnerHTML={{ __html: stateScript }} /> }
                     { clientSrc && <script src={ clientSrc } /> }
                 </body>
@@ -28,11 +28,15 @@ class NoFooter extends Component {
 }
 
 NoFooter.propTypes = {
-    body: React.PropTypes.node,
-    bodyId: React.PropTypes.string,
+    components: React.PropTypes.shape({
+        body: React.PropTypes.node
+    }),
+    ids: React.PropTypes.shape({
+        body: React.PropTypes.string,
+        state: React.PropTypes.string
+    }),
     clientSrc: React.PropTypes.string,
     state: React.PropTypes.object,
-    stateId: React.PropTypes.string,
     title: React.PropTypes.string
 };
 

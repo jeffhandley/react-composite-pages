@@ -16,7 +16,7 @@ app.rehydrate(state, (err, context) => {
 
     const Component = () => (
         <FluxibleComponent context={context.getComponentContext()}>
-            <Message source='client' />
+            <Message source='universal' />
         </FluxibleComponent>
     );
 

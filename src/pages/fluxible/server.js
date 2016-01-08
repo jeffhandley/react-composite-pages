@@ -14,30 +14,28 @@ export default function loadMessagePage(callback, initialState) {
     // Create the page context and execute the load action
     const context = app.createContext();
 
-    const Component = () => (
+    const body = () => (
         <FluxibleComponent context={context.getComponentContext()}>
-            <Message source='server' />
+            <Message source='universal' />
         </FluxibleComponent>
     );
 
-    const MessageComponent = () => {
+    const getPage = () => {
         const state = app.dehydrate(context) || { };
-        const pageState = `
-            window.PAGE_STATE = ${JSON.stringify(state)};
-        `;
 
-        return (
-            <ServerWrapper
-                {...{pageState}}
-                clientSrc='/nui/client/pages/fluxible/client.js'
-                id='pages-fluxible'>
-                    <Component />
-            </ServerWrapper>
-        );
+        return {
+            state,
+            stateId: 'PAGE_STATE',
+
+            clientSrc: '/nui/client/pages/fluxible/client.js',
+
+            body,
+            bodyId: 'pages-fluxible'
+        };
     };
 
     callback(null, {
         ...bindActionCreators(actions, context.executeAction.bind(context)),
-        Message: MessageComponent
+        getPage
     });
 }

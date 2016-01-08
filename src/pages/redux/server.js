@@ -1,5 +1,4 @@
 import React from 'react';
-import ServerWrapper from '../../components/ServerWrapper';
 import { createStore, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import Message from './components/Message';
@@ -9,27 +8,28 @@ import actionCreators from './actionCreators';
 export default function loadMessagePage(callback, initialState) {
     const store = createStore(reducers, initialState);
 
-    const Component = () => (
+    const body = () => (
         <Provider {...{store}}>
-            <Message source='server' />
+            <Message source='universal' />
         </Provider>
     );
 
-    const MessageComponent = () => {
+    const getPage = () => {
         const state = store.getState() || { };
-        const pageState = `
-            window.PAGE_STATE = ${JSON.stringify(state)};
-        `;
 
-        return (
-            <ServerWrapper {...{pageState}} clientSrc='/nui/client/pages/redux/client.js' id='pages-redux'>
-                <Component />
-            </ServerWrapper>
-        );
+        return {
+            state,
+            stateId: 'PAGE_STATE',
+
+            clientSrc: '/nui/client/pages/redux/client.js',
+
+            body,
+            bodyId: 'pages-redux'
+        };
     };
 
     callback(null, {
         ...bindActionCreators(actionCreators, store.dispatch),
-        Message: MessageComponent
+        getPage
     });
 }

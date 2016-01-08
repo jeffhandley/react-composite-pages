@@ -12,7 +12,7 @@ const store = createStore(reducers, state);
 
 const Component = () => (
     <Provider {...{store}}>
-        <Message source='client' />
+        <Message source='universal' />
     </Provider>
 );
 

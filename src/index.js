@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 const app = express();
+app.use('/nui/client', express.static('lib'));
 
 app.get('/nui/redux', (req, res) => {
     const { default: loadMessagePage } = require('./pages/redux/server');

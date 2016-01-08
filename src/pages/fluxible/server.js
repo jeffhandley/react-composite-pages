@@ -16,7 +16,7 @@ export default function loadMessagePage(callback, initialState) {
 
     const Component = () => (
         <FluxibleComponent context={context.getComponentContext()}>
-            <Message />
+            <Message source='server' />
         </FluxibleComponent>
     );
 
@@ -27,8 +27,11 @@ export default function loadMessagePage(callback, initialState) {
         `;
 
         return (
-            <ServerWrapper {...{pageState}}>
-                <Component />
+            <ServerWrapper
+                {...{pageState}}
+                clientSrc='/nui/client/pages/fluxible/client.js'
+                id='pages-fluxible'>
+                    <Component />
             </ServerWrapper>
         );
     };

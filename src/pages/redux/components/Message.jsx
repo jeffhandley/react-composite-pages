@@ -3,12 +3,18 @@ import { connect } from 'react-redux'
 
 class Message extends Component {
     render() {
-        const { text } = this.props;
+        const { text, source } = this.props;
 
         return (
             <div>
-                The following message is rendered through redux:
-                <span>{text}</span>
+                <div>
+                    The following message is rendered through redux:&nbsp;
+                    <span>{text}</span>
+                </div>
+                <div>
+                    Rendered on:&nbsp;
+                    <span>{source}</span>
+                </div>
             </div>
         );
     }

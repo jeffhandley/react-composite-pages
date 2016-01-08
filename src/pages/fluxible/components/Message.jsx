@@ -4,12 +4,18 @@ import { connectToStores } from 'fluxible-addons-react';
 
 class Message extends Component {
     render() {
-        const { text } = this.props;
+        const { text, source } = this.props;
 
         return (
             <div>
-                The following message is rendered through fluxible:
-                <span>{text}</span>
+                <div>
+                    The following message is rendered through fluxible:&nbsp;
+                    <span>{text}</span>
+                </div>
+                <div>
+                    Rendered on:&nbsp;
+                    <span>{source}</span>
+                </div>
             </div>
         );
     }

@@ -11,7 +11,7 @@ export default function loadMessagePage(callback, initialState) {
 
     const Component = () => (
         <Provider {...{store}}>
-            <Message />
+            <Message source='server' />
         </Provider>
     );
 
@@ -22,7 +22,7 @@ export default function loadMessagePage(callback, initialState) {
         `;
 
         return (
-            <ServerWrapper {...{pageState}}>
+            <ServerWrapper {...{pageState}} clientSrc='/nui/client/pages/redux/client.js' id='pages-redux'>
                 <Component />
             </ServerWrapper>
         );

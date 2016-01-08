@@ -1,29 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
+import Message from '../../../components/Message';
 import messageStore from '../stores/messageStore';
 import { connectToStores } from 'fluxible-addons-react';
-
-class Message extends Component {
-    render() {
-        const { text, source } = this.props;
-
-        return (
-            <div>
-                <div>
-                    The following message is rendered through fluxible:&nbsp;
-                    <span>{text}</span>
-                </div>
-                <div>
-                    Rendered on:&nbsp;
-                    <span>{source}</span>
-                </div>
-            </div>
-        );
-    }
-}
-
-Message.propTypes = {
-    text: PropTypes.string.isRequired,
-};
 
 const stores = [ messageStore ];
 

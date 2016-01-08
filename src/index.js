@@ -13,9 +13,7 @@ app.get('/nui/redux', (req, res) => {
         messagePage.setSource('server');
 
         const { default: FullPage } = require('./masters/FullPage');
-
-        const page = messagePage.getPage();
-        page.body = page.body && ReactDOMServer.renderToString(<page.body />);
+        const page = messagePage.render();
 
         res.send(ReactDOMServer.renderToStaticMarkup(
             <FullPage {...page} title='Redux Message' />
@@ -30,9 +28,7 @@ app.get('/nui/fluxible', (req, res) => {
         messagePage.setMessage('Loaded from express', () => {
             messagePage.setSource('server', () => {
                 const { default: FullPage } = require('./masters/FullPage');
-
-                const page = messagePage.getPage();
-                page.body = page.body && ReactDOMServer.renderToString(<page.body />);
+                const page = messagePage.render();
 
                 res.send(ReactDOMServer.renderToStaticMarkup(
                     <FullPage {...page} title='Fluxible Message' />

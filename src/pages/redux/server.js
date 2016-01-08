@@ -8,13 +8,7 @@ import actionCreators from './actionCreators';
 export default function loadMessagePage(callback, initialState) {
     const store = createStore(reducers, initialState);
 
-    const body = () => (
-        <Provider {...{store}}>
-            <Message />
-        </Provider>
-    );
-
-    const getPage = () => {
+    const render = () => {
         const state = store.getState() || { };
 
         return {
@@ -23,13 +17,17 @@ export default function loadMessagePage(callback, initialState) {
 
             clientSrc: '/nui/client/pages/redux/client.js',
 
-            body,
+            body: (
+                <Provider {...{store}}>
+                    <Message />
+                </Provider>
+            ),
             bodyId: 'pages-redux'
         };
     };
 
     callback(null, {
         ...bindActionCreators(actionCreators, store.dispatch),
-        getPage
+        render
     });
 }

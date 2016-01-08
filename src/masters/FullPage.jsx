@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 class FullPage extends Component {
     render() {
         const { body, bodyId, clientSrc, state, stateId, title } = this.props;
+
+        const html = {
+            body: renderToStaticMarkup(body)
+        };
 
         const stateScript = stateId && `window.${stateId} = ${JSON.stringify(state)};`;
 
@@ -12,7 +17,7 @@ class FullPage extends Component {
                     <title>{ title }</title>
                 </head>
                 <body>
-                    <div dangerouslySetInnerHTML={{ __html: body }} id={ bodyId || 'page-body' } />
+                    <div dangerouslySetInnerHTML={{ __html: html.body }} id={ bodyId || 'page-body' } />
                     { stateScript && <script dangerouslySetInnerHTML={{ __html: stateScript }} /> }
                     { clientSrc && <script src={ clientSrc } /> }
                 </body>
@@ -22,7 +27,7 @@ class FullPage extends Component {
 }
 
 FullPage.propTypes = {
-    body: React.PropTypes.string,
+    body: React.PropTypes.node,
     bodyId: React.PropTypes.string,
     clientSrc: React.PropTypes.string,
     state: React.PropTypes.object,

@@ -1,5 +1,4 @@
 import React from 'react';
-import ServerWrapper from '../../components/ServerWrapper';
 import bindActionCreators from './actions/bindActionCreators';
 import Fluxible from 'fluxible';
 import { FluxibleComponent } from 'fluxible-addons-react';
@@ -14,13 +13,7 @@ export default function loadMessagePage(callback, initialState) {
     // Create the page context and execute the load action
     const context = app.createContext();
 
-    const body = () => (
-        <FluxibleComponent context={context.getComponentContext()}>
-            <Message />
-        </FluxibleComponent>
-    );
-
-    const getPage = () => {
+    const render = () => {
         const state = app.dehydrate(context) || { };
 
         return {
@@ -29,13 +22,17 @@ export default function loadMessagePage(callback, initialState) {
 
             clientSrc: '/nui/client/pages/fluxible/client.js',
 
-            body,
+            body: (
+                <FluxibleComponent context={context.getComponentContext()}>
+                    <Message />
+                </FluxibleComponent>
+            ),
             bodyId: 'pages-fluxible'
         };
     };
 
     callback(null, {
         ...bindActionCreators(actions, context.executeAction.bind(context)),
-        getPage
+        render
     });
 }

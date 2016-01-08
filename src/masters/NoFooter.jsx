@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
-class FullPage extends Component {
+class NoFooter extends Component {
     render() {
         const { body, bodyId, clientSrc, state, stateId, title } = this.props;
 
@@ -19,7 +19,6 @@ class FullPage extends Component {
                 <body>
                     <div style={{ backgroundColor: '#343434', color: 'white', height: 100 }}>Top Nav</div>
                     <div dangerouslySetInnerHTML={{ __html: html.body }} id={ bodyId || 'page-body' } />
-                    <div style={{ backgroundColor: '#343434', color: 'white', height: 50 }}>Footer</div>
                     { stateScript && <script dangerouslySetInnerHTML={{ __html: stateScript }} /> }
                     { clientSrc && <script src={ clientSrc } /> }
                 </body>
@@ -28,7 +27,7 @@ class FullPage extends Component {
     }
 }
 
-FullPage.propTypes = {
+NoFooter.propTypes = {
     body: React.PropTypes.node,
     bodyId: React.PropTypes.string,
     clientSrc: React.PropTypes.string,
@@ -37,4 +36,4 @@ FullPage.propTypes = {
     title: React.PropTypes.string
 };
 
-export default FullPage;
+export default NoFooter;

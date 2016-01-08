@@ -3,6 +3,7 @@ import bindActionCreators from './actions/bindActionCreators';
 import Fluxible from 'fluxible';
 import { FluxibleComponent } from 'fluxible-addons-react';
 import Message from './components/Message';
+import NoFooter from '../../masters/NoFooter';
 import stores from './stores';
 import * as actions from './actions';
 
@@ -27,7 +28,9 @@ export default function loadMessagePage(callback, initialState) {
                     <Message />
                 </FluxibleComponent>
             ),
-            bodyId: 'pages-fluxible'
+            bodyId: 'pages-fluxible',
+
+            master: NoFooter
         };
     };
 

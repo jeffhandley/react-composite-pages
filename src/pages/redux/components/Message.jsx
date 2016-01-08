@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 
 function select(state) {
     return {
-        text: state.text
+        flux: 'redux',
+        message: state.message,
+        source: state.source
     };
 }
 

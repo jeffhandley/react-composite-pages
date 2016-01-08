@@ -1,3 +1,4 @@
 export default {
-    SET_TEXT: 'SET_TEXT'
+    SET_MESSAGE: 'SET_MESSAGE',
+    SET_SOURCE: 'SET_SOURCE'
 };

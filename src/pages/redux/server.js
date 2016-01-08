@@ -10,7 +10,7 @@ export default function loadMessagePage(callback, initialState) {
 
     const body = () => (
         <Provider {...{store}}>
-            <Message source='universal' />
+            <Message />
         </Provider>
     );
 

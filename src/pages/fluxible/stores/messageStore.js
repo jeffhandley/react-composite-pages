@@ -1,29 +1,41 @@
 import { createStore } from 'fluxible/addons';
-import { SET_TEXT } from '../constants';
+import constants from '../constants';
 
 export default createStore({
     storeName: 'Message',
 
     getMessage() {
-        return this.text || 'No Message Specified';
+        return this.message || 'No Message Specified';
+    },
+
+    getSource() {
+        return this.source || 'No Source Specified';
     },
 
     handlers: {
-        [SET_TEXT]: 'setText'
+        [constants.SET_MESSAGE]: 'setMessage',
+        [constants.SET_SOURCE]: 'setSource'
     },
 
-    setText(text) {
-        this.text = text;
+    setMessage(message) {
+        this.message = message;
+        this.emitChange();
+    },
+
+    setSource(source) {
+        this.source = source;
         this.emitChange();
     },
 
     dehydrate() {
         return {
-            text: this.text
+            message: this.message,
+            source: this.source
         };
     },
 
     rehydrate(state) {
-        this.text = state.text;
+        this.message = state.message;
+        this.source = state.source;
     }
 });

@@ -21,4 +21,13 @@ class FullPage extends Component {
     }
 }
 
+FullPage.propTypes = {
+    body: React.PropTypes.string,
+    bodyId: React.PropTypes.string,
+    clientSrc: React.PropTypes.string,
+    state: React.PropTypes.object,
+    stateId: React.PropTypes.string,
+    title: React.PropTypes.string
+};
+
 export default FullPage;

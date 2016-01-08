@@ -3,5 +3,6 @@ import actions from '../actions';
 import property from '../createPropertyReducer';
 
 export default combineReducers({
-    text: property(actions.SET_TEXT, 'No Message Specified')
+    message: property(actions.SET_MESSAGE, 'No Message Specified'),
+    source: property(actions.SET_SOURCE, 'No Source Specified')
 });

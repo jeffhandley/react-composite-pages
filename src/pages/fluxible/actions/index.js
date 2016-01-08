@@ -1,11 +1,11 @@
-import { SET_TEXT } from '../constants';
+import constants from '../constants';
 
-export function load(actionContext, payload, done) {
-    actionContext.dispatch(SET_TEXT, payload.text);
+export function setMessage(actionContext, message, done) {
+    actionContext.dispatch(constants.SET_MESSAGE, message);
     done();
 }
 
-export function setMessage(actionContext, message, done) {
-    actionContext.dispatch(SET_TEXT, message);
+export function setSource(actionContext, source, done) {
+    actionContext.dispatch(constants.SET_SOURCE, source);
     done();
 }

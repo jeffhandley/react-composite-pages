@@ -10,22 +10,20 @@ export default (opts) => {
     const {
         reducers,
         actionCreators,
-        initialState,
-        callback,
         components,
         ...renderProps
     } = opts;
 
-    const store = createStore(reducers, initialState);
+    const store = createStore(reducers);
 
     const render = () => {
-        const state = store.getState() || { };
-
         const wrappedComponents = _.mapValues(components, (component) => (
             <Provider {...{store}}>
                 { component }
             </Provider>
         ));
+
+        const state = store.getState() || { };
 
         return {
             ...renderProps,
@@ -34,8 +32,8 @@ export default (opts) => {
         };
     };
 
-    callback(null, {
+    return {
         ...bindActionCreators(actionCreators, store.dispatch),
         render
-    });
+    };
 };

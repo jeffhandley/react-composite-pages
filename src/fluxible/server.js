@@ -11,8 +11,6 @@ export default (opts) => {
     const {
         stores,
         actions,
-        initialState,
-        callback,
         components,
         ...renderProps
     } = opts;
@@ -38,8 +36,8 @@ export default (opts) => {
         };
     };
 
-    callback(null, {
+    return {
         ...bindActionCreators(actions, context.executeAction.bind(context)),
         render
-    });
+    };
 }

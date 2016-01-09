@@ -1,6 +1,7 @@
 import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import FullPage from './masters/FullPage';
 
 const app = express();
 app.use('/nui/client', express.static('lib'));
@@ -8,17 +9,14 @@ app.use('/nui/client', express.static('lib'));
 app.get('/nui/redux', (req, res) => {
     const { default: loadMessagePage } = require('./pages/redux/server');
 
-    loadMessagePage((err, messagePage) => {
-        messagePage.setMessage('Loaded from express');
-        messagePage.setSource('server');
-
+    loadMessagePage(req, (err, messagePage) => {
         const {
-            master = require('./masters/FullPage').default,
+            master = FullPage,
             ...props
         } = messagePage.render();
 
         res.send(ReactDOMServer.renderToStaticMarkup(
-            React.createElement(master, {...props, title: 'Redux Message' })
+            React.createElement(master, {...props })
         ));
     });
 });
@@ -26,19 +24,15 @@ app.get('/nui/redux', (req, res) => {
 app.get('/nui/fluxible', (req, res) => {
     const { default: loadMessagePage } = require('./pages/fluxible/server');
 
-    loadMessagePage((err, messagePage) => {
-        messagePage.setMessage('Loaded from express', () => {
-            messagePage.setSource('server', () => {
-                const {
-                    master = require('./masters/FullPage').default,
-                    ...props
-                } = messagePage.render();
+    loadMessagePage(req, (err, messagePage) => {
+        const {
+            master = FullPage,
+            ...props
+        } = messagePage.render();
 
-                res.send(ReactDOMServer.renderToStaticMarkup(
-                    React.createElement(master, {...props, title: 'Fluxible Message' })
-                ));
-            });
-        });
+        res.send(ReactDOMServer.renderToStaticMarkup(
+            React.createElement(master, {...props })
+        ));
     });
 });
 

@@ -1,11 +1,8 @@
 import React from 'react';
-import Message from './components/Message';
-import { FluxibleComponent } from 'fluxible-addons-react';
+import Body from './components/Body';
 import Page from '../../masters/components/Page';
 import NoFooter from '../../masters/NoFooter';
-import Section from '../../masters/components/Section';
 import Client from '../../masters/components/Client';
-import Title from '../../masters/components/Title';
 import stores from './stores';
 import * as actions from './actions';
 import fluxibleServer from '../../fluxible/server';
@@ -17,14 +14,7 @@ export default (req, callback) => {
         actions,
         component: (props) => (
             <Page master={NoFooter}>
-                <Section name='body' id='pages-fluxible'>
-                    <div>
-                        <Title title='Fluxible Page' />
-                        <FluxibleComponent context={props.context}>
-                            <Message />
-                        </FluxibleComponent>
-                    </div>
-                </Section>
+                <Body id='pages-fluxible' context={props.context} title='Fluxible Page (server)' />
                 <Client id='fluxible' src='/nui/client/pages/fluxible/client.js' state={props.state} />
             </Page>
         )

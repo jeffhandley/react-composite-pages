@@ -1,24 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Fluxible from 'fluxible';
-import { FluxibleComponent } from 'fluxible-addons-react';
+import Section from '../../masters/components/Section';
+import Title from '../../masters/components/Title';
 import Message from './components/Message';
 import stores from './stores';
+import * as actions from './actions';
+import loadClient from '../../fluxible/loadClient';
 
-const app = new Fluxible({ component: Message });
-stores.forEach((store) => app.registerStore(store));
-
-const state = window.PAGE_STATE;
-const container = document.getElementById('pages-fluxible');
-
-app.rehydrate(state, (err, context) => {
-    const MessageComponent = app.getComponent();
-
-    const Component = () => (
-        <FluxibleComponent context={context.getComponentContext()}>
-            <Message />
-        </FluxibleComponent>
-    );
-
-    ReactDOM.render(<Component />, container);
+loadClient({
+    stores,
+    actions,
+    component: (props) => (
+        <Section name='body' id='pages-fluxible'>
+            <div>
+                <Title title='Fluxible Page (on the client)' />
+                <Message {...props} />
+            </div>
+        </Section>
+    ),
+    state: window.fluxible,
+    container: document.getElementById('pages-fluxible')
+}, ({ setSource }) => {
+    setSource('client');
 });

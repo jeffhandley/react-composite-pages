@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import Section from './components/Section';
+import Partial from './components/Partial';
+import Title from './components/Title';
+import Client from './components/Client';
+import RequireJs from './components/RequireJs';
 
 class Default extends Component {
     render() {
-        const { components, ids, clientSrc, state, title } = this.props;
+        const { body, sections } = Section.rewind();
 
-        const html = {
-            body: components.body && renderToStaticMarkup(components.body)
-        };
+        if (sections) {
+            throw new Error('Unused sections remain: ' + JSON.stringify(sections));
+        }
 
-        const stateScript = ids.state && `window.${ids.state} = ${JSON.stringify(state)};`;
+        const title = Title.rewind();
+        const clients = Client.rewind();
+        const requiredJs = RequireJs.rewind();
 
         return (
             <html>
@@ -17,26 +23,20 @@ class Default extends Component {
                     <title>{ title }</title>
                 </head>
                 <body>
-                    <div dangerouslySetInnerHTML={{ __html: html.body }} id={ ids.body } />
-                    { stateScript && <script dangerouslySetInnerHTML={{ __html: stateScript }} /> }
-                    { clientSrc && <script src={ clientSrc } /> }
+                    { body && <Partial {...body} /> }
+                    { clients && clients.map((client) => (
+                        <div key={client.id} id={ `client-${client.id}` }>
+                            <script dangerouslySetInnerHTML={{ __html: `window.${client.id} = ${JSON.stringify(client.state)};` }} />
+                            <script src={client.src} />
+                        </div>
+                    ))}
+                    { requiredJs && requiredJs.map((src) => (
+                        <script key={src} {...{src}} />
+                    ))}
                 </body>
             </html>
         );
     }
 }
-
-Default.propTypes = {
-    components: React.PropTypes.shape({
-        body: React.PropTypes.node
-    }),
-    ids: React.PropTypes.shape({
-        body: React.PropTypes.string,
-        state: React.PropTypes.string
-    }),
-    clientSrc: React.PropTypes.string,
-    state: React.PropTypes.object,
-    title: React.PropTypes.string
-};
 
 export default Default;

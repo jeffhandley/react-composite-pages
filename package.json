@@ -44,6 +44,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
+    "react-side-effect": "^1.0.2",
     "redux": "^3.0.5"
   }
 }

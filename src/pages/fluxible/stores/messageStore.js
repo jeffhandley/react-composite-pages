@@ -4,14 +4,6 @@ import constants from '../constants';
 export default createStore({
     storeName: 'Message',
 
-    getMessage() {
-        return this.message || 'No Message Specified';
-    },
-
-    getSource() {
-        return this.source || 'No Source Specified';
-    },
-
     handlers: {
         [constants.SET_MESSAGE]: 'setMessage',
         [constants.SET_SOURCE]: 'setSource'

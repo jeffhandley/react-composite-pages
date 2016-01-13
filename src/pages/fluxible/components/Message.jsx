@@ -1,18 +1,20 @@
 import React from 'react'
 import Message from '../../../components/Message';
 import messageStore from '../stores/messageStore';
-import { connectToStores } from 'fluxible-addons-react';
+import { connectToStores, provideContext } from 'fluxible-addons-react';
 
 const stores = [ messageStore ];
 
 const mapStoresToProps = (context) => {
-    const store = context.getStore(messageStore);
+    const { message, source } = context.getStore(messageStore);
 
     return {
         flux: 'fluxible',
-        message: store.getMessage(),
-        source: store.getSource()
+        message,
+        source
     };
 };
 
-export default connectToStores(Message, stores, mapStoresToProps);
+export default provideContext(
+    connectToStores(Message, stores, mapStoresToProps)
+);

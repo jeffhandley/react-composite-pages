@@ -1,7 +1,7 @@
 import React from 'react';
 import Message from './components/Message';
 import Page from '../../masters/components/Page';
-import FullPage from '../../masters/FullPage';
+import NoFooter from '../../masters/NoFooter';
 import Section from '../../masters/components/Section';
 import Client from '../../masters/components/Client';
 import Title from '../../masters/components/Title';
@@ -15,7 +15,7 @@ export default (req, callback) => {
         stores,
         actions,
         component: (props) => (
-            <Page master={FullPage}>
+            <Page master={NoFooter}>
                 <Section name='body' id='pages-fluxible'>
                     <div>
                         <Title title='Fluxible Page' />

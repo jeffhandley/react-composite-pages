@@ -1,5 +1,4 @@
 import express from 'express';
-import FullPage from './masters/FullPage';
 import renderPage from './renderPage';
 import url from 'url';
 import path from 'path';
@@ -12,7 +11,7 @@ app.get('/nui/*', (req, res, next) => {
     const pagePath = path.join(path.relative('/nui', pathname));
 
     const { default: loadPage } = require(`./pages/${pagePath}/server`);
-    renderPage(req, res, loadPage, FullPage);
+    renderPage(req, res, loadPage);
 });
 
 const server = app.listen(3000, () => {

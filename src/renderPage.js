@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Master from './masters/components/Master';
-import Section from './masters/components/Section';
 
-export default (req, res, loadPage, DefaultMaster) => {
-    loadPage(req, (err, component) => {
-        let html, master;
+function renderPage(req, res, loadPage) {
+    const render = (err, component) => {
+        let html = ReactDOMServer.renderToStaticMarkup(component);
+        let master = Master.rewind();
 
-        do {
-            html = ReactDOMServer.renderToStaticMarkup(component);
-            master = Master.rewind();
-
-            if (master) {
-                component = React.createElement(master);
-            }
+        if (master) {
+            master(req, render);
+        } else {
+            res.send(html);
         }
-        while (master);
+    }
 
-        res.send(html);
-    })
-};
+    loadPage(req, render);
+}
+
+export default renderPage;

@@ -39,4 +39,6 @@ class Default extends Component {
     }
 }
 
-export default Default;
+export default (req, callback) => {
+    callback(null, <Default />);
+};

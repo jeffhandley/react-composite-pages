@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Default from './Default';
 import TopNav from './components/TopNav';
+import Page from './components/Page';
 import Section from './components/Section';
 import Partial from './components/Partial';
 
@@ -23,4 +24,6 @@ class NoFooter extends Component {
     }
 }
 
-export default NoFooter;
+export default (req, callback) => {
+    callback(null, <NoFooter />);
+};

@@ -28,4 +28,6 @@ class FullPage extends Component {
     }
 }
 
-export default FullPage;
+export default (req, callback) => {
+    callback(null, <FullPage />);
+};

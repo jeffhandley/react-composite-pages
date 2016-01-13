@@ -1,5 +1,6 @@
 import React from 'react';
 import Message from './components/Message';
+import { FluxibleComponent } from 'fluxible-addons-react';
 import Page from '../../masters/components/Page';
 import NoFooter from '../../masters/NoFooter';
 import Section from '../../masters/components/Section';
@@ -19,7 +20,9 @@ export default (req, callback) => {
                 <Section name='body' id='pages-fluxible'>
                     <div>
                         <Title title='Fluxible Page' />
-                        <Message {...props} />
+                        <FluxibleComponent context={props.context}>
+                            <Message />
+                        </FluxibleComponent>
                     </div>
                 </Section>
                 <Client id='fluxible' src='/nui/client/pages/fluxible/client.js' state={props.state} />

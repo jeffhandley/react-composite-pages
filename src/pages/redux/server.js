@@ -1,11 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import Message from './components/Message';
+import Body from './components/Body';
 import Page from '../../masters/components/Page';
 import FullPage from '../../masters/FullPage';
-import Section from '../../masters/components/Section';
 import Client from '../../masters/components/Client';
-import Title from '../../masters/components/Title';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import reduxServer from '../../redux/server';
@@ -17,14 +14,7 @@ export default (req, callback) => {
         actionCreators,
         component: (props) => (
             <Page master={FullPage}>
-                <Section name='body' id='pages-redux'>
-                    <div>
-                        <Title title='Redux Page' />
-                        <Provider store={props.store}>
-                            <Message />
-                        </Provider>
-                    </div>
-                </Section>
+                <Body id='pages-redux' store={props.store} title='Redux Page (server)' />
                 <Client id='redux' src='/nui/client/pages/redux/client.js' state={props.state} />
             </Page>
         )

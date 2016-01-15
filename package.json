@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predev": "(cd src/pages/counter && webpack)",
+    "predev": "(cd src/pages/counter && webpack) && (cd src/masters/FullPage && webpack)",
     "dev": "babel-node src/index",
     "start": "nodemon --watch src -e js,jsx --exec npm run dev"
   },

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import RenderState from '../../components/RenderState';
 import RenderClient from '../../components/RenderClient';
-import Title from '../../components/Title';
 import loadMaster from '../Default';
 import loadTopNav from '../../components/TopNav';
 import loadFooter from '../../components/Footer/server';
@@ -18,25 +17,28 @@ export default function renderMaster(req, callback) {
                         },
 
                         render() {
+                            const topNav = ReactDOMServer.renderToStaticMarkup(<TopNav />);
                             const body = ReactDOMServer.renderToStaticMarkup(this.props.body);
+                            const footer = ReactDOMServer.renderToStaticMarkup(
+                                <Footer id='app-footer' clientSrc='/nui/client/masters/fullpage.js' />
+                            );
 
                             const state = RenderState.rewind();
                             const clients = RenderClient.rewind();
-                            const title = Title.rewind();
 
                             return (
                                 <Master
                                     body={
                                         <div>
-                                            <TopNav />
+                                            <div dangerouslySetInnerHTML={{ __html: topNav }} />
                                             <div dangerouslySetInnerHTML={{ __html: body }} />
+                                            <div dangerouslySetInnerHTML={{ __html: footer }} />
                                             { state && <script dangerouslySetInnerHTML={{ __html: `
                                                 window.RenderState = ${JSON.stringify(state)};
                                             ` }} /> }
                                             { clients && clients.map((client) => (
                                                 <script key={client} src={client} />
                                             ))}
-                                            <Footer id='app-footer' clientSrc='/nui/client/masters/fullpage.js' />
                                         </div>
                                     }
                                 />

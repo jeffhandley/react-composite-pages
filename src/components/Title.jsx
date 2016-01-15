@@ -1,7 +1,11 @@
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Children, Component } from 'react';
 import withSideEffect from 'react-side-effect';
 
-class Title extends Component {
+const Title = React.createClass({
+    propTypes: {
+        title: React.PropTypes.string.isRequired
+    },
+
     render() {
         if (this.props.children) {
             return Children.only(this.props.children);
@@ -9,11 +13,7 @@ class Title extends Component {
             return null;
         }
     }
-}
-
-Title.propTypes = {
-    title: PropTypes.string.isRequired
-};
+});
 
 function reducePropsToState(propsList) {
     const innermostProps = propsList[propsList.length - 1];

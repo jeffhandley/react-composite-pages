@@ -1,17 +1,20 @@
 import express from 'express';
-import renderPage from './renderPage';
 import url from 'url';
 import path from 'path';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 const app = express();
 app.use('/nui/client', express.static('lib'));
 
-app.get('/nui/*', (req, res, next) => {
-    const { pathname } = url.parse(req.url);
-    const pagePath = path.join(path.relative('/nui', pathname));
+app.get('/counter', (req, res, next) => {
+    const { default: loadPage } = require('./pages/counter/server');
 
-    const { default: loadPage } = require(`./pages/${pagePath}/server`);
-    renderPage(req, res, loadPage);
+    loadPage(req, (Page, pageActions) => {
+        pageActions.increment();
+
+        res.send(ReactDOMServer.renderToStaticMarkup(<Page />));
+    });
 });
 
 const server = app.listen(3000, () => {

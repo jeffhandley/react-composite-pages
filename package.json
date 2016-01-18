@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
+    "express-beautify": "^0.1.2",
     "fluxible": "^1.0.3",
     "fluxible-addons-react": "^0.2.2",
     "lodash": "^3.10.1",

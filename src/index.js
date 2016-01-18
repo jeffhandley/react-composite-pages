@@ -1,10 +1,12 @@
 import express from 'express';
+import beautify from 'express-beautify';
 import url from 'url';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 const app = express();
+app.use(beautify());
 app.use('/nui/client', express.static('lib'));
 
 app.get('/counter', (req, res, next) => {
@@ -13,7 +15,7 @@ app.get('/counter', (req, res, next) => {
     loadPage(req, (Page, pageActions) => {
         pageActions.increment();
 
-        res.send(ReactDOMServer.renderToStaticMarkup(<Page />));
+        res.sendHTML(ReactDOMServer.renderToStaticMarkup(<Page />));
     });
 });
 

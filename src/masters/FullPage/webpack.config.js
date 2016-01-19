@@ -7,9 +7,9 @@ module.exports = {
         './client'
     ],
     output: {
-        path: path.join(__dirname, '../../../lib/masters'),
+        path: path.join(__dirname, '../../../lib/client/masters'),
         filename: 'fullpage.js',
-        publicPath: '/nui/client/masters'
+        publicPath: '/client/masters'
     },
     plugins: [
         new webpack.DefinePlugin({

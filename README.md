@@ -508,4 +508,3 @@ The patterns set forth by react-composition are very straight-forward:
 1. Client-side entry points load the component state and initialize the flux loop and rendering
 
 With this approach, we gain highly-composable, universally-rendering React components and flexible page templates.
-

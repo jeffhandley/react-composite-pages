@@ -6,7 +6,7 @@ import Title from '../../components/Title';
 import url from 'url';
 
 export default (req, callback) => {
-    const { count } = url.parse(req.url, true).query;
+    const { count = 4 } = url.parse(req.url, true).query;
 
     loadCounter(count, (Counter, counterActions) => {
         counterActions.increment();
@@ -20,7 +20,7 @@ export default (req, callback) => {
                                 <div>
                                     <Title title='Counter Page' />
                                     Displaying the Counter...
-                                    <Counter id='app-counter' clientSrc='/nui/client/pages/counter.js' />
+                                    <Counter id='app-counter' clientSrc='/client/pages/counter.js' />
                                 </div>
                             }
                         />

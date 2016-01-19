@@ -7,9 +7,9 @@ module.exports = {
         './client'
     ],
     output: {
-        path: path.join(__dirname, '../../../lib/pages'),
+        path: path.join(__dirname, '../../../lib/client/pages'),
         filename: 'counter.js',
-        publicPath: '/nui/client/pages'
+        publicPath: '/client/pages'
     },
     plugins: [
         new webpack.DefinePlugin({

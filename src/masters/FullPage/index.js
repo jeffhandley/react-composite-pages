@@ -20,7 +20,7 @@ export default function renderMaster(req, callback) {
                             const topNav = ReactDOMServer.renderToStaticMarkup(<TopNav />);
                             const body = ReactDOMServer.renderToStaticMarkup(this.props.body);
                             const footer = ReactDOMServer.renderToStaticMarkup(
-                                <Footer id='app-footer' clientSrc='/nui/client/masters/fullpage.js' />
+                                <Footer id='app-footer' clientSrc='/client/masters/fullpage.js' />
                             );
 
                             const state = RenderState.rewind();

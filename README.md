@@ -73,25 +73,10 @@ Any action creators that need to be exposed on the component's public API--conne
 
 The server rendering of the page, from the component exposed in the `loadPage` callback, can include `<script>` tags that drive client-side interactions and rendering.  For client-side rendering to get bootstrapped for any component, the following steps need to be taken:
 
-1. Load the components initial state into the store, using an object that was serialized within the rendered page
+1. Load the component's initial state into the store, using an object that was serialized within the rendered page
 1. Render the component (causing zero flicker on first client-side render)
 
 The client-side programming model is simpler than the server-side model because we don't need to worry as much about asynchronously rendering from the server.  Client-side bundles can be much more autonomous, but some patterns do still emerge.
-
-``` js
-function initialize(state, callback)
-```
-
-#### Parameters
-
-##### state
-The state object that was serialized from the server
-
-##### callback
-Function to execute when the state has been loaded and the React component has been re-rendered on the client, taking the following parameters:
-
-**actions**
-Any action creators that need to be exposed on the component's public API--connected to any Flux implementation the component uses.
 
 ## Server Example
 
@@ -119,7 +104,7 @@ const server = app.listen(3000, () => {
 });
 ```
 
-It is important to note that the `loadPage` function was imported from a server-specific module for the hello page.  Examining the `hello/server.js` module, we can see that it's very straight-forward.
+Examining the `hello/server.js` module, we can see that it's very straight-forward.
 
 ``` jsx
 import React from 'react';
@@ -212,9 +197,7 @@ Changing the `to` parameter on the querystring changes whom the page says hello 
 
 ### Universal Rendering
 
-Adding universal rendering does require a couple of steps.  These steps will likely plug into your existing client bundling system.
-
-We'll start by extracting the Hello component out into a separate module.
+Adding universal rendering does require a couple of steps.  These steps will likely plug into your existing client bundling system.  We'll start by extracting the Hello component out into a separate module.
 
 ``` jsx
 import React from 'react';
@@ -334,7 +317,7 @@ const loadTemplate = (req, callback) => {
             },
             render() {
                 const body = ReactDOMServer.renderToStaticMarkup(this.props.children);
-                const container = RenderContainer.rewind();
+                const template = RenderContainer.rewind();
 
                 return (
                     <html>
@@ -343,7 +326,8 @@ const loadTemplate = (req, callback) => {
                         </head>
                         <body>
                             <div dangerouslySetInnerHTML={{ __html: body }} />
-                            <container.Component />
+                            <template.state />
+                            <template.clients />
                         </body>
                     </html>
                 );
@@ -381,11 +365,27 @@ As you can see, the `loadTemplate` function is defined using the same signature 
 
 We can easily extract the `loadTemplate` function out into its own module.  Then, if the page template itself needs to have its own universally-rendered components, it could wrap them in `RenderContainer` elements and wrap itself in a higher-order template.  The calling page would be completely unaware of this factoring.
 
+To tie this together, we need to update our `hello/client.js` file to consume the state serialization object that `RenderContainer` produces.
+
+``` jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './Hello';
+
+const state = window.RenderState['hello-container'].hello;
+const container = document.getElementById('hello-container');
+
+ReactDOM.render(
+    <Hello to={state.to} />,
+    container
+);
+```
+
 #### Multiple Page Sections
 
 Many page templates will need to have multiple sections, rather than just a single child.  This can be easily achieved by defining props on the page template component as React elements.
 
-Below, the `loadTemplate` function seen above has been refactored to accept a body and a footer rather than simply children.  It's also using a helpful `renderSections` function from `RenderContainer`.
+Below, the `loadTemplate` function seen above has been refactored to accept a body and a footer rather than simply children.  It's also using a helpful `renderTemplate` function from `RenderContainer`.
 
 ``` jsx
 import React from 'react';
@@ -401,7 +401,7 @@ export default (req, callback) => {
                 footer: React.PropTypes.element
             },
             render() {
-                const container = RenderContainer.renderSections(this.props);
+                const template = RenderContainer.renderTemplate(this.props);
 
                 return (
                     <html>
@@ -409,11 +409,11 @@ export default (req, callback) => {
                             <title>Hello World</title>
                         </head>
                         <body>
-                            <container.sections.body />
-                            <container.state />
-                            <container.clients />
+                            <template.sections.body />
+                            <template.state />
+                            <template.clients />
                             <hr />
-                            <container.sections.footer />
+                            <template.sections.footer />
                         </body>
                     </html>
                 );
@@ -464,7 +464,7 @@ export default (req, callback) => {
 
 #### Clean Output
 
-With the `RenderContainer` in place and being used by both the page and the template, we get very clean univerally-rendering pages.  Here's the (beautified) HTML output we now see.
+With the `RenderContainer` in place and being used by both the page and the template, we get very clean universally-rendering pages.  Here's the (beautified) HTML output we now see.
 
 ``` html
 <html>

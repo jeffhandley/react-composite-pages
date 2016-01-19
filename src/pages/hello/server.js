@@ -1,30 +1,35 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import url from 'url';
 import Hello from './Hello';
+import RenderContainer from '../../components/RenderContainer';
+import loadTemplate from './template';
 
 export default (req, callback) => {
     const { to = "World" } = url.parse(req.url, true).query;
     const state = { hello: { to }};
-    const renderState = `window.RenderState = ${JSON.stringify(state)};`;
 
-    callback(
-        React.createClass({
-            render() {
-                return (
-                    <html>
-                        <head>
-                            <title>Hello World</title>
-                        </head>
-                        <body>
-                            <div id='hello-container'>
-                                <Hello to={to} />
-                            </div>
-                            <script dangerouslySetInnerHTML={{ __html: renderState }} />
-                            <script src='/client/pages/hello.js' />
-                        </body>
-                    </html>
-                );
-            }
-        })
-    );
+    loadTemplate(req, (Template) => {
+        callback(
+            React.createClass({
+                render() {
+                    return (
+                        <Template
+                            body={
+                                <RenderContainer
+                                  clientSrc='/client/pages/hello.js'
+                                  id='hello-container'
+                                  state={state}>
+                                    <Hello to={to} />
+                                </RenderContainer>
+                            }
+                            footer={
+                                <span>It's nice to see you again!</span>
+                            }
+                        />
+                    );
+                }
+            })
+        );
+    });
 }

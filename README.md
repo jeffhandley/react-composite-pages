@@ -292,3 +292,220 @@ This pattern is now performing universal rendering of a React component.  Becaus
 React-Composition does not prescribe details for how to implement those concerns, as you can rely on your preferred Flux implementation and patterns.
 
 Similarly, on the client side, your client entry point could also easily connect your React component to your Flux loop after loading the state from the page.
+
+## React-Composition Utilities
+
+With the base functionality in place, it's time to introduce the React-Composition utilities that can make this work even better.
+
+You might have noticed the glaring issue with the above example: **the entire page is rendered as static HTML, which means the initial client-side React rendering will be inefficient (and potentially cause flicker).**
+
+To address this, the `<Hello>` component needs to be emitted using the `ReactDOMServer.renderToString` method instead of being lumped in with the rest of the page that gets emitted through `renderToStaticMarkup`.
+
+### RenderContainer
+
+This can be accomplished using React-Composition's `RenderContainer` component.  A `RenderContainer` will render its contents using `renderToString()`, even when it is being rendered with `renderToStaticMarkup()`.
+
+`RenderContainer` does more though.  It will also emit the serialized state for the component to be rendered inside the container, along with the `<script>` tag for the client-side bundle.
+
+But importantly, `RenderContainer` does not emit the `<script>` tags directly--it instead uses `react-side-effect` build up the necessary state and clients that must be rendered as part of a page template.
+
+### Page Templates
+
+Page templates are an essential part of React-Composition.  Page templates are how the outer HTML shell of the page is decoupled from every page instance in the application, while allowing each page to select the applicable template.
+
+Page templates have the responsibility of capturing the sets of render states and clients and emitting the `<script>` tags in the desired place within the HTML.
+
+### Creating a Page Template
+
+Let's update the `hello/server.js` module to use a `RenderContainer` and define its own page template.
+
+``` jsx
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import url from 'url';
+import Hello from './Hello';
+import RenderContainer from '../../components/RenderContainer';
+
+const loadTemplate = (req, callback) => {
+    callback(
+        React.createClass({
+            propTypes: {
+                children: React.PropTypes.element.isRequired
+            },
+            render() {
+                const body = ReactDOMServer.renderToStaticMarkup(this.props.children);
+                const container = RenderContainer.rewind();
+
+                return (
+                    <html>
+                        <head>
+                            <title>Hello World</title>
+                        </head>
+                        <body>
+                            <div dangerouslySetInnerHTML={{ __html: body }} />
+                            <container.Component />
+                        </body>
+                    </html>
+                );
+            }
+        })
+    );
+}
+
+export default (req, callback) => {
+    const { to = "World" } = url.parse(req.url, true).query;
+    const state = { hello: { to }};
+
+    loadTemplate(req, (Template) => {
+        callback(
+            React.createClass({
+                render() {
+                    return (
+                        <Template>
+                            <RenderContainer
+                              clientSrc='/client/pages/hello.js'
+                              id='hello-container'
+                              state={state}>
+                                <Hello to={to} />
+                            </RenderContainer>
+                        </Template>
+                    );
+                }
+            })
+        );
+    });
+}
+```
+
+As you can see, the `loadTemplate` function is defined using the same signature as the page itself--following this pattern makes it extremely easy to have page templates populate their own data from the request, perform async operations when necessary, and return React components to be used as containers wrapped around pages.
+
+We can easily extract the `loadTemplate` function out into its own module.  Then, if the page template itself needs to have its own universally-rendered components, it could wrap them in `RenderContainer` elements and wrap itself in a higher-order template.  The calling page would be completely unaware of this factoring.
+
+#### Multiple Page Sections
+
+Many page templates will need to have multiple sections, rather than just a single child.  This can be easily achieved by defining props on the page template component as React elements.
+
+Below, the `loadTemplate` function seen above has been refactored to accept a body and a footer rather than simply children.  It's also using a helpful `renderSections` function from `RenderContainer`.
+
+``` jsx
+import React from 'react';
+import url from 'url';
+import Hello from './Hello';
+import RenderContainer from '../../components/RenderContainer';
+
+export default (req, callback) => {
+    callback(
+        React.createClass({
+            propTypes: {
+                body: React.PropTypes.element.isRequired,
+                footer: React.PropTypes.element
+            },
+            render() {
+                const container = RenderContainer.renderSections(this.props);
+
+                return (
+                    <html>
+                        <head>
+                            <title>Hello World</title>
+                        </head>
+                        <body>
+                            <container.sections.body />
+                            <container.state />
+                            <container.clients />
+                            <hr />
+                            <container.sections.footer />
+                        </body>
+                    </html>
+                );
+            }
+        })
+    );
+}
+```
+
+The `hello/server.js` module has been updated to use these body and footer props.
+
+``` jsx
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import url from 'url';
+import Hello from './Hello';
+import loadTemplate from './template';
+
+export default (req, callback) => {
+    const { to = "World" } = url.parse(req.url, true).query;
+    const state = { hello: { to }};
+
+    loadTemplate(req, (Template) => {
+        callback(
+            React.createClass({
+                render() {
+                    return (
+                        <Template
+                            body={
+                                <RenderContainer
+                                  clientSrc='/client/pages/hello.js'
+                                  id='hello-container'
+                                  state={state}>
+                                    <Hello to={to} />
+                                </RenderContainer>
+                            }
+                            footer={
+                                <span>It's nice to see you again!</span>
+                            }
+                        />
+                    );
+                }
+            })
+        );
+    });
+}
+```
+
+#### Clean Output
+
+With the `RenderContainer` in place and being used by both the page and the template, we get very clean univerally-rendering pages.  Here's the (beautified) HTML output we now see.
+
+``` html
+<html>
+<head>
+  <title>Hello World</title>
+</head>
+<body>
+  <div>
+    <div>
+      <div id="hello-container"><span data-reactid=".upsep0qubk" data-react-checksum="1638870632"><span data-reactid=".upsep0qubk.0">Hello </span><span data-reactid=".upsep0qubk.1">Jeff</span></span>
+      </div>
+      <noscript></noscript>
+      <noscript></noscript>
+    </div>
+  </div>
+  <script>
+    window.RenderState = {
+      "hello-container": {
+        "hello": {
+          "to": "Jeff"
+        }
+      }
+    };
+  </script>
+  <div>
+    <script src="/client/pages/hello.js"></script>
+  </div>
+  <hr/>
+  <div><span>It&#x27;s nice to see you again!</span></div>
+</body>
+</html>
+```
+
+## Summary
+
+The patterns set forth by react-composition are very straight-forward:
+
+1. Server-side modules export functions that accept the request and a callback.  The callback will receive a React component and optionally action creators that the consumer can invoke.
+1. The server-side React components use the `RenderContainer` component to wrap around any universally-rendered components and their flux implementations.
+1. Those components wrap themselves in page templates that render the outer `<html>` skeleton and consume the state and clients from the `RenderContainer`.
+1. Client-side entry points load the component state and initialize the flux loop and rendering
+
+With this approach, we gain highly-composable, universally-rendering React components and flexible page templates.
+

@@ -22,7 +22,7 @@ Consider a few of the following reasons why the interaction models of the above 
 1. You simply have the goal of keeping the separate concerns of the large application decoupled from one another (as you should)
 1. Some components support universal rendering, some don't need to (many dashboard components take a long time to fetch data and therefore don't support universal rendering)
 
-With all of the above in mind, React-Composition provides useful components and defines a simple model for composing React-based modules together, with support for universal rendering where you want it.
+With all of the above in mind, React-Composition defines a simple model for composing React-based modules together, and provides support for universal rendering where you want it with a `RenderContainer` component.
 
 ## Composition
 

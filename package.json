@@ -1,17 +1,17 @@
 {
-  "name": "react-masterpages",
+  "name": "react-composition",
   "version": "0.0.1",
-  "description": "Master Pages (Page Templates) for React",
+  "description": "Utilities and patterns for composite React applications",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predev": "(cd src/pages/counter && webpack) && (cd src/masters/FullPage && webpack)",
+    "predev": "(cd src/pages/hello && webpack) && (cd src/pages/counter && webpack) && (cd src/masters/FullPage && webpack)",
     "dev": "babel-node src/index",
     "start": "nodemon --watch src -e js,jsx --exec npm run dev"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffhandley/react-masterpages.git"
+    "url": "git+https://github.com/jeffhandley/react-composition.git"
   },
   "keywords": [
     "react",
@@ -23,9 +23,9 @@
   "author": "Jeff Handley",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jeffhandley/react-masterpages/issues"
+    "url": "https://github.com/jeffhandley/react-composition/issues"
   },
-  "homepage": "https://github.com/jeffhandley/react-masterpages#readme",
+  "homepage": "https://github.com/jeffhandley/react-composition#readme",
   "devDependencies": {
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",

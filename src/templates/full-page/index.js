@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import RenderContainer from '../../components/RenderContainer';
 
 export default (req, callback) => {

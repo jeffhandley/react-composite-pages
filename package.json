@@ -1,7 +1,7 @@
 {
   "name": "react-composition",
-  "version": "0.0.1",
-  "description": "Utilities and patterns for composite React applications",
+  "version": "0.1.0",
+  "description": "Patterns and utilities for creating composite React applications",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

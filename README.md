@@ -1,19 +1,191 @@
 # React-Composition
 
-Composing independently-interactive, universal-rendering, flux/redux-driven React components together is hard work.  React-Composition is here to help.
+A common pattern with React is to separate your Presentational Components from Container Components.  This is highlighted within the [Redux documentation](http://rackt.org/redux/docs/basics/UsageWithReact.html#container-and-presentational-components).
 
-## Use Cases
+There are many scenarios for composing multiple React Container Components together onto a single page; including:
 
-There are countless scenarios for when you want to compose independent React components together, but here are just a few salient ones:
-
-1. Page Layouts (a.k.a. master pages)
-1. Application navigation components
-1. Other common components that render on many pages
+1. Interactive navigation components and other common controls
 1. Dashboard screens that comprise many independent sections
-1. Large, complex single-page applications that are broken down into smaller units
+1. Scenarios where components are delivered from multiple teams using different flux implementations (or versions)
 
-While small projects can choose a single interaction model and integrate everything together, larger projects cannot.  Instead, components need to be built with independence and composability in mind.
+React-Composition provides components and patterns to help you expose your Container Components for drop-in consumption.  As a by-product, React-Composition provides a straight-forward approach to creating layered page templates for universal rendering of the composed Container Components.
 
+## Usage
+
+You will wrap your Container Components in functions that allow for simple async consumption, rendering the Container Components within a `RenderContainer` that aides in universal rendering through page templates.
+
+Here's a Hello World example that does not utilize a flux/redux implementation.
+
+### Presentational Component: `pages/hello/Hello.jsx`
+
+``` jsx
+import React from 'react';
+
+export default React.createClass({
+    propTypes: {
+        to: React.PropTypes.string.isRequired
+    },
+
+    render() {
+        return (
+            <span>Hello {this.props.to}</span>
+        );
+    }
+});
+```
+
+### Container Component (Server): `pages/hello/index.js`
+
+``` jsx
+import React from 'react';
+import url from 'url';
+import Hello from './Hello';
+import RenderContainer from '../../components/RenderContainer';
+import loadTemplate from '../../templates/full-page';
+
+export default (req, callback) => {
+    // This could be an async data fetching operation
+    const { to = "World" } = url.parse(req.url, true).query;
+
+    // This could be the creation of a flux/redux store
+    const state = { hello: { to }};
+
+    // Load the Template Container Component using this same approach
+    loadTemplate(req, (Template, templateFunctions) => {
+        // Render ourselves inside the loaded Template
+        // Specify both a body and a footer for the template
+        callback(
+            React.createClass({
+                render() {
+                    return (
+                        <Template
+                            body={
+                                // The body supports universal rendering
+                                // It is wrapped in a RenderContainer to
+                                // configure its required client script,
+                                // initial state, and container element id.
+                                <RenderContainer
+                                  clientSrc='/client/pages/hello.js'
+                                  id='hello-container'
+                                  state={state}>
+                                    <Hello to={to} />
+                                </RenderContainer>
+                            }
+                            footer={
+                                // The footer doesn't use universal rendering
+                                // It will be rendered as static HTML
+                                <span>It's nice to see you again!</span>
+                            }
+                        />
+                    );
+                }
+            }),
+            // Expose the template's external API functions through ours
+            templateFunctions
+        );
+    });
+}
+```
+
+### Container Component (Client): `pages/hello/client.js`
+
+This is the client-side bundle entry point for the 'hello' page.
+
+``` jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './Hello';
+import { getRenderState } from 'react-composition/client';
+
+// This is the id used for the <RenderContainer> on the server
+const containerId = 'hello-container';
+
+// Get the rendered state for this container component
+const state = getRenderState(containerId);
+const container = document.getElementById(containerId);
+
+// We could perform any flux/redux initialization here before rendering
+
+ReactDOM.render(
+    <Hello to={state.to} />,
+    container
+);
+```
+
+### Page Template: `templates/full-page/index.js`
+
+``` jsx
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import RenderContainer from '../../components/RenderContainer';
+
+export default (req, callback) => {
+    // We could perform async operations for loading the template
+    callback(
+        React.createClass({
+            // Define body and footer element properties for the template
+            propTypes: {
+                body: React.PropTypes.element.isRequired,
+                footer: React.PropTypes.element
+            },
+
+            render() {
+                // Render the template's elements, capturing all of the
+                // required state and client scripts.
+                const template = RenderContainer.renderTemplate(this.props);
+
+                // The output includes `state` and `clients` components plus
+                // a `sections` object with components for each element
+                // represented in the template props that were passed in.
+
+                return (
+                    <html>
+                        <head>
+                            <title>Hello World</title>
+                        </head>
+                        <body>
+                            <template.sections.body />
+                            <template.state />
+                            <template.clients />
+                            <hr />
+                            <template.sections.footer />
+                        </body>
+                    </html>
+                );
+            }
+        })
+    );
+}
+```
+
+### Server: `server.js`
+
+``` jsx
+import express from 'express';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+const app = express();
+
+// Build process produces client-side page bundles in lib/client
+app.use('/client', express.static('lib/client'));
+
+app.get('/hello', (req, res, next) => {
+    const { default: loadPage } = require('./pages/hello');
+
+    loadPage(req, (Page, pageActions) => {
+        res.send(ReactDOMServer.renderToStaticMarkup(<Page />));
+    });
+});
+
+const server = app.listen(3000, () => {
+    console.log('Listening on port 3000');
+});
+```
+
+
+
+## OLD
 Consider a few of the following reasons why the interaction models of the above components might diverge:
 
 1. Different teams responsible for different components have differing preferences for their Flux implementation

@@ -6,15 +6,17 @@ There are many scenarios for composing multiple React Container Components toget
 
 1. Interactive navigation components and other common controls
 1. Dashboard screens that comprise many independent sections
-1. Scenarios where components are delivered from multiple teams using different flux implementations (or versions)
+1. Composition of components using different flux implementations (or versions)
 
 React-Composition provides components and patterns to help you expose your Container Components for drop-in consumption.  As a by-product, React-Composition provides a straight-forward approach to creating layered page templates for universal rendering of the composed Container Components.
 
 ## Usage
 
-You will wrap your Container Components in functions that allow for simple async consumption, rendering the Container Components within a `RenderContainer` that aides in universal rendering through page templates.
+On the server, you will wrap your Container Components in functions that allow for simple async consumption, rendering the Container Components within a `RenderContainer` that aides in universal rendering through page templates.
 
-Here's a bare bones Hello World example (that does not utilize a flux/redux implementation).
+On the client, you will load up the rendered state and initialize client-side rendering through a basic client bundle.
+
+Here's a bare-bones Hello World example (that does not utilize a flux/redux implementation).
 
 **Presentational Component: `pages/hello/Hello.jsx`**
 
@@ -87,31 +89,6 @@ export default (req, callback) => {
 }
 ```
 
-**Container Component (Client): `pages/hello/client.js`**
-
-This is the client-side bundle entry point for the 'hello' page.
-
-``` jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Hello from './Hello';
-import { getRenderState } from 'react-composition/client';
-
-// This is the id used for the <RenderContainer> on the server
-const containerId = 'hello-container';
-
-// Get the rendered state for this container component
-const state = getRenderState(containerId);
-const container = document.getElementById(containerId);
-
-// We could perform any flux/redux initialization here before rendering
-
-ReactDOM.render(
-    <Hello to={state.to} />,
-    container
-);
-```
-
 **Page Template: `templates/full-page/index.js`**
 
 ``` jsx
@@ -155,6 +132,31 @@ export default (req, callback) => {
         })
     );
 }
+```
+
+**Container Component (Client): `pages/hello/client.js`**
+
+This is the client-side bundle entry point for the 'hello' page.
+
+``` jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './Hello';
+import { getRenderState } from 'react-composition/client';
+
+// This is the id used for the <RenderContainer> on the server
+const containerId = 'hello-container';
+
+// Get the rendered state for this container component
+const state = getRenderState(containerId);
+const container = document.getElementById(containerId);
+
+// We could perform any flux/redux initialization here before rendering
+
+ReactDOM.render(
+    <Hello to={state.to} />,
+    container
+);
 ```
 
 **Server: `server.js`**

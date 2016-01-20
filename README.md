@@ -2,6 +2,8 @@
 
 A common pattern with React is to separate your Presentational Components from Container Components.  This is highlighted within the [Redux documentation](http://rackt.org/redux/docs/basics/UsageWithReact.html#container-and-presentational-components).
 
+The distinction is that Presentational Components should be dumb--operating only with props and callbacks, whereas Container Components are smart--connected to your Flux implementation, and in charge of managing state.
+
 There are many scenarios for composing multiple React Container Components together onto a single page; including:
 
 1. Interactive navigation components and other common controls
@@ -16,7 +18,7 @@ On the server, you will wrap your Container Components in functions that allow f
 
 On the client, you will load up the rendered state and initialize client-side rendering through a basic client bundle.
 
-Here's a bare-bones Hello World example (that does not utilize a flux/redux implementation).
+Here's a bare-bones Hello World example (that does not utilize a flux implementation).
 
 **Presentational Component: `pages/hello/Hello.jsx`**
 
@@ -49,7 +51,7 @@ export default (req, callback) => {
     // This could be an async data fetching operation
     const { to = "World" } = url.parse(req.url, true).query;
 
-    // This could be the creation of a flux/redux store
+    // This could be the creation of a flux store
     const state = { hello: { to }};
 
     // Load the Template Container Component using this same approach
@@ -151,7 +153,7 @@ const containerId = 'hello-container';
 const state = getRenderState(containerId);
 const container = document.getElementById(containerId);
 
-// We could perform any flux/redux initialization here before rendering
+// We could perform any flux initialization here before rendering
 
 ReactDOM.render(
     <Hello to={state.to} />,
@@ -244,7 +246,7 @@ The patterns set forth by React-Composition are very straight-forward:
     * The `RenderContainer` receives state and client script to be used for client-side rendering
 1. The server simply loads a page and renders its React component
     * The server code does not need to be aware of which page template to render; the page wraps itself in the appropriate template
-    * The server code remains independent from any flux/redux implementation in use on the page
+    * The server code remains independent from any flux implementation in use on the page
 1. Client-side entry points load the state and initialize client-side rendering
 
-With this approach, we can easily compose multiple Container Components together into page templates and support universal rendering of any Container Component, regardless of its flux/redux implementation.
+With this approach, we can easily compose multiple Container Components together into page templates and support universal rendering of any Container Component, regardless of its flux implementation.

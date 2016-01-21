@@ -1,0 +1,40 @@
+{
+  "name": "react-composition-examples",
+  "version": "0.1.0",
+  "description": "React-Composition Examples",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "link": "linklocal",
+    "preinstall": "(npm install linklocal) && (npm run link)",
+    "predev": "for dir in pages/*; do echo 'Packing '$dir && (cd $dir && webpack); done",
+    "dev": "babel-node server",
+    "start": "nodemon --ignore lib/ -e js,jsx --exec npm run dev"
+  },
+  "author": "Jeff Handley",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "linklocal": "^2.5.2",
+    "nodemon": "^1.8.1",
+    "webpack": "^1.12.10"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-beautify": "^0.1.2",
+    "fluxible": "^1.0.3",
+    "fluxible-addons-react": "^0.2.2",
+    "lodash": "^3.10.1",
+    "react": "^0.14.6",
+    "react-composition": "file:../react-composition/lib",
+    "react-dom": "^0.14.6",
+    "react-redux": "^4.0.6",
+    "react-side-effect": "^1.0.2",
+    "redux": "^3.0.5"
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer, RenderClient } from 'react-composition';
 
 export default (req, callback) => {
     // We could perform async operations for loading the template
@@ -39,6 +39,7 @@ export default (req, callback) => {
                         <body>
                             <template.sections.body />
                             <template.state />
+                            <script src='/client/common.js' />
                             <template.clients />
                             <hr />
                             <template.sections.footer />

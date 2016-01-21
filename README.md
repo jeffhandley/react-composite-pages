@@ -44,18 +44,18 @@ export default React.createClass({
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import loadTemplate from '../../templates/full-page';
+import template from '../../templates/full-page';
 import { RenderContainer } from 'react-composition';
 
 export default (req, callback) => {
     // This could be an async data fetching operation
     const { to = "World" } = url.parse(req.url, true).query;
 
-    // This could be the creation of a flux store
-    const state = { hello: { to }};
+    // This could be the creation of a flux/redux store
+    const state = { to };
 
     // Load the Template Container Component using this same approach
-    loadTemplate(req, (Template, templateFunctions) => {
+    template(req, (Template, templateFunctions) => {
         // Render ourselves inside the loaded Template
         // Specify both a body and a footer for the template
         callback(
@@ -63,6 +63,7 @@ export default (req, callback) => {
                 render() {
                     return (
                         <Template
+                            title={`Hello ${to}`}
                             body={
                                 // The body supports universal rendering
                                 // It is wrapped in a RenderContainer to
@@ -91,11 +92,11 @@ export default (req, callback) => {
 }
 ```
 
-**Page Template: `templates/full-page/index.js`**
+**Page Template: `templates/full-page.js`**
 
 ``` jsx
 import React from 'react';
-import RenderContainer from '../../components/RenderContainer';
+import { RenderContainer, RenderClient } from 'react-composition';
 
 export default (req, callback) => {
     // We could perform async operations for loading the template
@@ -104,13 +105,24 @@ export default (req, callback) => {
             // Define body and footer element properties for the template
             propTypes: {
                 body: React.PropTypes.element.isRequired,
-                footer: React.PropTypes.element
+                footer: React.PropTypes.element,
+                title: React.PropTypes.string.isRequired
+            },
+
+            getDefaultProps() {
+                return {
+                    footer: (
+                        <div>React-Composition</div>
+                    ),
+                    title: 'React-Composition'
+                };
             },
 
             render() {
                 // Render the template's elements, capturing all of the
                 // required state and client scripts.
-                const template = RenderContainer.renderTemplate(this.props);
+                const { body, footer } = this.props;
+                const template = RenderContainer.renderTemplate({ body, footer });
 
                 // The output includes `state` and `clients` components plus
                 // a `sections` object with components for each element
@@ -119,11 +131,12 @@ export default (req, callback) => {
                 return (
                     <html>
                         <head>
-                            <title>Hello World</title>
+                            <title>{ this.props.title }</title>
                         </head>
                         <body>
                             <template.sections.body />
                             <template.state />
+                            <script src='/client/common.js' />
                             <template.clients />
                             <hr />
                             <template.sections.footer />
@@ -146,14 +159,8 @@ import ReactDOM from 'react-dom';
 import Hello from './Hello';
 import { getRenderState } from 'react-composition/client';
 
-// This is the id used for the <RenderContainer> on the server
-const containerId = 'hello-container';
-
-// Get the rendered state for this container component
-const state = getRenderState(containerId);
-const container = document.getElementById(containerId);
-
-// We could perform any flux initialization here before rendering
+const state = getRenderState('hello-container');
+const container = document.getElementById('hello-container');
 
 ReactDOM.render(
     <Hello to={state.to} />,
@@ -165,16 +172,17 @@ ReactDOM.render(
 
 ``` jsx
 import express from 'express';
+import url from 'url';
+import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 const app = express();
-
-// Build process produces client-side page bundles in lib/client
 app.use('/client', express.static('lib/client'));
 
-app.get('/hello', (req, res, next) => {
-    const { default: loadPage } = require('./pages/hello');
+app.get('*', (req, res, next) => {
+    const { pathname } = url.parse(req.url, true);
+    const { default: loadPage } = require('./' + path.join('pages/', pathname));
 
     loadPage(req, (Page, pageActions) => {
         res.send(ReactDOMServer.renderToStaticMarkup(<Page />));
@@ -200,7 +208,7 @@ However, if we examine the output for this page, we'll see that react attributes
 <body>
   <div>
     <div>
-      <div id="hello-container"><span data-reactid=".upsep0qubk" data-react-checksum="1638870632"><span data-reactid=".upsep0qubk.0">Hello </span><span data-reactid=".upsep0qubk.1">Jeff</span></span>
+      <div id="hello-container"><span data-reactid=".1dn7u7gyvi8" data-react-checksum="1993289167"><span data-reactid=".1dn7u7gyvi8.0">Hello </span><span data-reactid=".1dn7u7gyvi8.1">World</span></span>
       </div>
       <noscript></noscript>
       <noscript></noscript>
@@ -209,15 +217,12 @@ However, if we examine the output for this page, we'll see that react attributes
   <script>
     window.RenderState = {
       "hello-container": {
-        "hello": {
-          "to": "World"
-        }
+        "to": "World"
       }
     };
   </script>
-  <div>
-    <script src="/client/pages/hello.js"></script>
-  </div>
+  <script src="/client/common.js"></script>
+  <script src="/client/pages/hello.js"></script>
   <hr/>
   <div><span>It&#x27;s nice to see you again!</span></div>
 </body>

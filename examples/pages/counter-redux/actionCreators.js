@@ -1,3 +1,6 @@
 export default {
-    increment: (count = 1) => ({ type: 'INCREMENT', count })
+    increment: (count = 1) => ({
+        type: 'INCREMENT',
+        count: count
+    })
 };

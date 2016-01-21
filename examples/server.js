@@ -23,6 +23,14 @@ app.get('/counter/redux', (req, res, next) => {
     });
 });
 
+app.get('/counter/fluxible', (req, res, next) => {
+    const { default: loadPage } = require('./pages/counter-fluxible');
+
+    loadPage(req, (Page, pageActions) => {
+        res.sendHTML(ReactDOMServer.renderToStaticMarkup(<Page />));
+    });
+});
+
 const server = app.listen(3000, () => {
     console.log('Listening on port 3000');
 });

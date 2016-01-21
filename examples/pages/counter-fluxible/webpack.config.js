@@ -7,9 +7,9 @@ module.exports = {
     './client'
   ],
   output: {
-    path: path.join(__dirname, '../../../lib/pages/fluxible'),
-    filename: 'client.js',
-    publicPath: '/nui/client/pages/fluxible'
+    path: path.join(__dirname, '../../lib/client/pages'),
+    filename: 'counter-fluxible.js',
+    publicPath: '/client/pages'
   },
   plugins: [
     new webpack.DefinePlugin({

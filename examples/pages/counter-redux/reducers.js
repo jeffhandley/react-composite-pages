@@ -1,6 +1,6 @@
 export default (state = 0, action) => {
     if (action.type === 'INCREMENT') {
-        return ++state;
+        return state + action.count;
     } else {
         return state;
     }

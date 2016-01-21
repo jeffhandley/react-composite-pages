@@ -10,8 +10,7 @@ import { RenderContainer } from 'react-composition';
 
 export default (req, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
-
-    const store = createStore(reducers, to);
+    const store = createStore(reducers, Number(to));
 
     const mapStateToProps = (state) => ({
         value: state

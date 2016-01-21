@@ -1,11 +1,6 @@
 import React from 'react';
-import * as actions from './actions';
 
 export default React.createClass({
-    contextTypes: {
-        executeAction: React.PropTypes.func.isRequired
-    },
-
     propTypes: {
         increment: React.PropTypes.func.isRequired,
         value: React.PropTypes.number.isRequired

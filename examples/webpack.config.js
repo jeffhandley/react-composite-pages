@@ -3,12 +3,14 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
-  entry: [
-    './client'
-  ],
+  entry: {
+    ['counter-fluxible']: './pages/counter-fluxible/client.js',
+    ['counter-redux']: './pages/counter-redux/client.js',
+    ['hello']: './pages/hello/client.js'
+  },
   output: {
-    path: path.join(__dirname, '../../lib/client/pages'),
-    filename: 'counter-fluxible.js',
+    path: path.join(__dirname, './lib/client/pages'),
+    filename: '[name].js',
     publicPath: '/client/pages'
   },
   plugins: [

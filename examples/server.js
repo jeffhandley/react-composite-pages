@@ -1,5 +1,7 @@
 import express from 'express';
 import beautify from 'express-beautify';
+import url from 'url';
+import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -7,27 +9,13 @@ const app = express();
 app.use(beautify());
 app.use('/client', express.static('lib/client'));
 
-app.get('/hello', (req, res, next) => {
-    const { default: loadPage } = require('./pages/hello');
+app.get('*', (req, res, next) => {
+    const { pathname, query: { pretty } } = url.parse(req.url, true);
+    const { default: loadPage } = require('./' + path.join('pages/', pathname));
 
     loadPage(req, (Page, pageActions) => {
-        res.sendHTML(ReactDOMServer.renderToStaticMarkup(<Page />));
-    });
-});
-
-app.get('/counter/redux', (req, res, next) => {
-    const { default: loadPage } = require('./pages/counter-redux');
-
-    loadPage(req, (Page, pageActions) => {
-        res.sendHTML(ReactDOMServer.renderToStaticMarkup(<Page />));
-    });
-});
-
-app.get('/counter/fluxible', (req, res, next) => {
-    const { default: loadPage } = require('./pages/counter-fluxible');
-
-    loadPage(req, (Page, pageActions) => {
-        res.sendHTML(ReactDOMServer.renderToStaticMarkup(<Page />));
+        const send = (pretty ? res.sendHTML : res.send).bind(res);
+        send(ReactDOMServer.renderToStaticMarkup(<Page />));
     });
 });
 

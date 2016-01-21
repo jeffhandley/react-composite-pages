@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "link": "linklocal",
     "preinstall": "(npm install linklocal@2.5.2) && (npm run link)",
-    "predev": "for dir in pages/*; do echo 'Packing '$dir && (cd $dir && webpack); done",
+    "predev": "webpack",
     "dev": "babel-node server",
     "start": "nodemon --ignore lib/ -e js,jsx --exec npm run dev"
   },

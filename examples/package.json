@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "link": "linklocal",
-    "preinstall": "(npm install linklocal) && (npm run link)",
+    "preinstall": "(npm install linklocal@2.5.2) && (npm run link)",
     "predev": "for dir in pages/*; do echo 'Packing '$dir && (cd $dir && webpack); done",
     "dev": "babel-node server",
     "start": "nodemon --ignore lib/ -e js,jsx --exec npm run dev"
@@ -31,7 +31,7 @@
     "fluxible-addons-react": "^0.2.2",
     "lodash": "^3.10.1",
     "react": "^0.14.6",
-    "react-composition": "file:../react-composition/lib",
+    "react-composition": "file:../lib",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
     "react-side-effect": "^1.0.2",

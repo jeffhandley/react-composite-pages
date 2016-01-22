@@ -1,18 +1,18 @@
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import template from '../../templates/basic';
 import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation
-    const { to = "World" } = url.parse(req.url, true).query;
+    const { to = "World", template = 'basic' } = url.parse(req.url, true).query;
+    const { default: loadTemplate } = require(`../../templates/${template}`);
 
     // This could be the creation of a flux/redux store
     const state = { to };
 
     // Load the Template Container Component using this same approach
-    template(req, res, (Template, templateFunctions) => {
+    loadTemplate(req, res, (Template, templateFunctions) => {
         // Render ourselves inside the loaded Template
         // Specify both a body and a footer for the template
         callback(

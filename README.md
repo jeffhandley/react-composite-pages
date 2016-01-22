@@ -233,10 +233,11 @@ This happens because the `RenderContainer` renders its own children using `React
 
 This approach ensures that each Container Component can perform client-side rendering cleanly, gaining a flicker-free initial render, and no warnings about rendering React components into elements that themselves were rendered from React.
 
-## Advanced Topics (TO BE WRITTEN)
+## Advanced Topics (WIP)
 
-1. Usage with Redux
-1. Usage with Fluxible
+1. [Usage with Redux](https://github.com/jeffhandley/react-composition/blob/master/docs/usage-with-redux.md)
+1. [Usage with Fluxible](https://github.com/jeffhandley/react-composition/blob/master/docs/usage-with-fluxuble.md)
+1. Nested page templates
 1. Exposing functions for a Container Component's external API
 
 ## Summary

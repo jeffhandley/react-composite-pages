@@ -1,7 +1,7 @@
 {
   "name": "react-composition",
   "version": "0.1.0",
-  "description": "Patterns and utilities for creating composite React applications",
+  "description": "Compose universal Container Components into pages using any combination of flux implementations",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

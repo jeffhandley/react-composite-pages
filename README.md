@@ -1,8 +1,10 @@
 # React-Composition
 
-A common pattern with React is to separate your Presentational Components from Container Components.  This is highlighted within the [Redux documentation](http://rackt.org/redux/docs/basics/UsageWithReact.html#container-and-presentational-components).
+React-Composition composes univeral Container Components into pages using any combination of flux implementations.
 
-The distinction is that Presentational Components should be dumb--operating only with props and callbacks, whereas Container Components are smart--connected to your Flux implementation, and in charge of managing state.
+## Scenarios
+
+A common pattern with React is to separate [Presentational Components from Container Components](http://rackt.org/redux/docs/basics/UsageWithReact.html#container-and-presentational-components). Presentational Components should be dumb--operating only with props and callbacks, whereas Container Components are smart--connected to your Flux implementation, and in charge of managing state.
 
 There are many scenarios for composing multiple React Container Components together onto a single page; including:
 
@@ -10,13 +12,15 @@ There are many scenarios for composing multiple React Container Components toget
 1. Dashboard screens that comprise many independent sections
 1. Composition of components using different flux implementations (or versions)
 
-React-Composition provides components and patterns to help you expose your Container Components for drop-in consumption.  As a by-product, React-Composition provides a straight-forward approach to creating layered page templates for universal rendering of the composed Container Components.
+React-Composition provides helps you render multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
 
 ## Usage
 
-On the server, you will wrap your Container Components in functions that allow for simple async consumption, rendering the Container Components within a `RenderContainer` that aides in universal rendering through page templates.
+On the server, you will wrap your Container Components in *Server Pages* that allow for simple async consumption, rendering the Container Components into *Page Templates*.
 
-On the client, you will load up the rendered state and initialize client-side rendering through a basic client bundle.
+On the client, you can easily access the server's render state to initialize client-side flux loops and rendering.
+
+### Hello World Example
 
 Here's a bare-bones Hello World example (that does not utilize a flux implementation).
 
@@ -244,15 +248,15 @@ This approach ensures that each Container Component can perform client-side rend
 
 The patterns set forth by React-Composition are very straight-forward:
 
-1. Server-side modules export functions that accept the request and a callback
+1. *Server Pages* export functions that accept the request and a callback
     * The callback will receive a React component
     * Functions can also be specified to represent the Container Component's external API
-1. The React components can load page templates and contribute template sections
-    * Template sections are Container Components that are wrapped in a `RenderContainer`
+1. The React components can use *Page Templates* with template sections
+    * Template sections are Container Components wrapped in a `RenderContainer`
     * The `RenderContainer` receives state and client script to be used for client-side rendering
 1. The server simply loads a page and renders its React component
     * The server code does not need to be aware of which page template to render; the page wraps itself in the appropriate template
     * The server code remains independent from any flux implementation in use on the page
 1. Client-side entry points load the state and initialize client-side rendering
 
-With this approach, we can easily compose multiple Container Components together into page templates and support universal rendering of any Container Component, regardless of its flux implementation.
+With this approach, we can easily compose Container Components together into page templates and support universal rendering of any Container Component, regardless of its flux implementation--even mixing flux implementations together cleanly.

@@ -14,6 +14,14 @@ There are many scenarios for composing multiple React Container Components toget
 
 React-Composition renders multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
 
+## Running the Examples
+
+To run the examples, you first need to build the react-composition package, and then start up the examples server.
+
+1. `npm run build`
+1. `cd examples`
+1. `npm start`
+
 ## Usage
 
 On the server, you will wrap your Container Components in *Server Pages* that allow for simple async consumption, rendering the Container Components into *Page Templates*.

@@ -34,6 +34,7 @@
     "babel-preset-react": "^6.3.13"
   },
   "dependencies": {
+    "lodash": "^4.0.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-side-effect": "^1.0.2"

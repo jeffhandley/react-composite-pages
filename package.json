@@ -4,6 +4,8 @@
   "description": "Compose universal Container Components into pages using any combination of flux implementations",
   "main": "index.js",
   "scripts": {
+    "preexamples": "npm run install && npm run build",
+    "examples": "(cd examples && npm run install && npm start)",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
     "postbuild": "cp package.json lib/package.json"

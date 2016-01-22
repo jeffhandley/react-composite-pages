@@ -18,8 +18,10 @@ React-Composition renders multiple Container Components on a page, regardless of
 
 To run the examples, you first need to build the react-composition package, and then start up the examples server.
 
+1. `npm install`
 1. `npm run build`
 1. `cd examples`
+1. `npm install`
 1. `npm start`
 
 ## Usage

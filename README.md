@@ -12,7 +12,7 @@ There are many scenarios for composing multiple React Container Components toget
 1. Dashboard screens that comprise many independent sections
 1. Composition of components using different flux implementations (or versions)
 
-React-Composition helps you render multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
+React-Composition renders multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
 
 ## Usage
 

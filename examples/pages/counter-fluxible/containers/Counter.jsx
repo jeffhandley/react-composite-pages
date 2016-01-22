@@ -23,9 +23,19 @@ export default React.createClass({
         const componentContext = this.props.context.getComponentContext();
 
         return (
-            <FluxibleComponent context={ componentContext }>
-                <ConnectedCounter { ...actionCreators } />
-            </FluxibleComponent>
+            <div className='component'>
+                <div className='component-header'>
+                    Component: <b>Fluxible Counter</b>
+                </div>
+                <div className='component-note'>
+                    This component uses Fluxible to provide an interactive counter.
+                </div>
+                <div className='component-body'>
+                    <FluxibleComponent context={ componentContext }>
+                        <ConnectedCounter { ...actionCreators } />
+                    </FluxibleComponent>
+                </div>
+            </div>
         );
     }
 });

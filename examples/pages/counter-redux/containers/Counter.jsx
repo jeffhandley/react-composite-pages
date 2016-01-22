@@ -16,9 +16,19 @@ export default React.createClass({
 
     render() {
         return (
-            <Provider store={ this.props.store }>
-                <ConnectedCounter />
-            </Provider>
+            <div className='component'>
+                <div className='component-header'>
+                    Component: <b>Redux Counter</b>
+                </div>
+                <div className='component-note'>
+                    This component uses Redux to provide an interactive counter.
+                </div>
+                <div className='component-body'>
+                    <Provider store={ this.props.store }>
+                        <ConnectedCounter />
+                    </Provider>
+                </div>
+            </div>
         );
     }
 });

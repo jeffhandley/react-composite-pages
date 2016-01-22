@@ -24,20 +24,13 @@ const server = app.listen(3000, () => {
     console.log('');
 
     console.log('Hello World: http://localhost:3000/hello');
-    console.log('  Querystring Options:');
-    console.log('    to = The name the page says hello to');
-    console.log('    template = Page template to use: basic (default), header');
-    console.log('');
-
     console.log('Redux-based Counter: http://localhost:3000/counter-redux');
-    console.log('  Querystring Options:');
-    console.log('    to = The initial counter value');
-    console.log('    template = Page template to use: basic (default), header');
+    console.log('Fluxible-based Counter: http://localhost:3000/counter-redux');
     console.log('');
 
-    console.log('Fluxible-based Counter: http://localhost:3000/counter-redux');
-    console.log('  Querystring Options:');
-    console.log('    to = The initial counter value');
+    console.log('Querystring options available for all pages:');
+    console.log('    to = Either the name to say hello to or the number to initially count to');
     console.log('    template = Page template to use: basic (default), header');
+    console.log('    username = Username to show in the Header template');
     console.log('');
 });

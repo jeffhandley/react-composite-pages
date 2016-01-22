@@ -9,6 +9,10 @@ const app = express();
 app.use(beautify());
 app.use('/client', express.static('lib/client'));
 
+app.get('/favicon.ico', (req, res, next) => {
+    res.send();
+});
+
 app.get('*', (req, res, next) => {
     const { pathname, query: { pretty } } = url.parse(req.url, true);
     const { default: loadPage } = require('./' + path.join('pages/', pathname));

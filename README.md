@@ -51,7 +51,7 @@ import Hello from './Hello';
 import template from '../../templates/full-page';
 import { RenderContainer } from 'react-composition';
 
-export default (req, callback) => {
+export default (req, res, callback) => {
     // This could be an async data fetching operation
     const { to = "World" } = url.parse(req.url, true).query;
 
@@ -102,7 +102,7 @@ export default (req, callback) => {
 import React from 'react';
 import { RenderContainer, RenderClient } from 'react-composition';
 
-export default (req, callback) => {
+export default (req, res, callback) => {
     // We could perform async operations for loading the template
     callback(
         React.createClass({
@@ -248,7 +248,7 @@ This approach ensures that each Container Component can perform client-side rend
 
 The patterns set forth by React-Composition are very straight-forward:
 
-1. *Server Pages* export functions that accept the request and a callback
+1. *Server Pages* export functions that accept the request, response, and a callback (similar to Express middleware)
     * The callback will receive a React component
     * Functions can also be specified to represent the Container Component's external API
 1. The React components can use *Page Templates* with template sections

@@ -13,7 +13,7 @@ app.get('*', (req, res, next) => {
     const { pathname, query: { pretty } } = url.parse(req.url, true);
     const { default: loadPage } = require('./' + path.join('pages/', pathname));
 
-    loadPage(req, (Page, pageActions) => {
+    loadPage(req, res, (Page, pageActions) => {
         const send = (pretty ? res.sendHTML : res.send).bind(res);
         send(ReactDOMServer.renderToStaticMarkup(<Page />));
     });

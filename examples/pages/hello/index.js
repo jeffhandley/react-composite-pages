@@ -4,7 +4,7 @@ import Hello from './Hello';
 import template from '../../templates/full-page';
 import { RenderContainer } from 'react-composition';
 
-export default (req, callback) => {
+export default (req, res, callback) => {
     // This could be an async data fetching operation
     const { to = "World" } = url.parse(req.url, true).query;
 
@@ -12,7 +12,7 @@ export default (req, callback) => {
     const state = { to };
 
     // Load the Template Container Component using this same approach
-    template(req, (Template, templateFunctions) => {
+    template(req, res, (Template, templateFunctions) => {
         // Render ourselves inside the loaded Template
         // Specify both a body and a footer for the template
         callback(

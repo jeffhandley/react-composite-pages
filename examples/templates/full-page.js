@@ -1,7 +1,7 @@
 import React from 'react';
 import { RenderContainer, RenderClient } from 'react-composition';
 
-export default (req, callback) => {
+export default (req, res, callback) => {
     // We could perform async operations for loading the template
     callback(
         React.createClass({

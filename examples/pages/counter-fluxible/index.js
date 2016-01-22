@@ -8,7 +8,7 @@ import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
 import { RenderContainer } from 'react-composition';
 
-export default (req, callback) => {
+export default (req, res, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
 
     const app = new Fluxible();
@@ -18,7 +18,7 @@ export default (req, callback) => {
     const actionCreators = bindActionCreators(actions, context);
 
     actionCreators.setValue({ value: Number(to) }, () => {
-        template(req, (Template, templateActions) => {
+        template(req, res, (Template, templateActions) => {
             callback(
                 React.createClass({
                     render() {

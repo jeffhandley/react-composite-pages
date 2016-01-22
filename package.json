@@ -1,7 +1,7 @@
 {
   "name": "react-composition",
   "version": "0.1.0",
-  "description": "Compose universal Container Components into pages using any combination of flux implementations",
+  "description": "Compose universal components into pages using any combination of flux implementations",
   "main": "index.js",
   "scripts": {
     "preexamples": "npm install && npm run build",

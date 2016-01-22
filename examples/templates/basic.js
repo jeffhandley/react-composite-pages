@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
-import { RenderContainer, RenderClient } from 'react-composition';
+import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template

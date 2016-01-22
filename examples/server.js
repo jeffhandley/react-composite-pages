@@ -29,7 +29,7 @@ const server = app.listen(3000, () => {
 
     console.log('Hello World: http://localhost:3000/hello');
     console.log('Redux-based Counter: http://localhost:3000/counter-redux');
-    console.log('Fluxible-based Counter: http://localhost:3000/counter-redux');
+    console.log('Fluxible-based Counter: http://localhost:3000/counter-fluxible');
     console.log('');
 
     console.log('Querystring options available for all pages:');

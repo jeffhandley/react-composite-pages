@@ -1,6 +1,6 @@
 # React-Composition
 
-React-Composition composes univeral Container Components into pages using any combination of flux implementations.
+React-Composition composes univeral components into pages using any combination of flux implementations.
 
 ## Scenarios
 

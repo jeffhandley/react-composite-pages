@@ -1,5 +1,5 @@
 const _ = {
-    mapValues: require('lodash/object/mapValues')
+    mapValues: require('lodash/mapValues')
 };
 
 export default function bindActionCreators(actions, context) {

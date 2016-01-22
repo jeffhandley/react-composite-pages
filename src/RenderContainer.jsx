@@ -4,7 +4,7 @@ import RenderClient from './RenderClient';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
 const _ = {
-    mapValues: require('lodash/object/mapValues')
+    mapValues: require('lodash/mapValues')
 };
 
 class RenderContainer extends Component {

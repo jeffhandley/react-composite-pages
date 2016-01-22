@@ -29,7 +29,7 @@
     "express-beautify": "^0.1.2",
     "fluxible": "^1.0.3",
     "fluxible-addons-react": "^0.2.2",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "react": "^0.14.6",
     "react-composition": "file:../lib",
     "react-dom": "^0.14.6",

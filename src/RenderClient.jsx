@@ -2,7 +2,7 @@ import React from 'react';
 import withSideEffect from 'react-side-effect';
 
 const _ = {
-    uniq: require('lodash/array/uniq')
+    uniq: require('lodash/uniq')
 };
 
 const RenderClient = React.createClass({

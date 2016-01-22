@@ -3,13 +3,13 @@ import url from 'url';
 import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import * as actions from './actions';
-import template from '../../templates/full-page';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
 import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {
-    const { to = 0 } = url.parse(req.url, true).query;
+    const { to = 0, template = 'basic' } = url.parse(req.url, true).query;
+    const { default: loadTemplate } = require(`../../templates/${template}`);
 
     const app = new Fluxible();
     app.registerStore(counterStore);
@@ -18,7 +18,7 @@ export default (req, res, callback) => {
     const actionCreators = bindActionCreators(actions, context);
 
     actionCreators.setValue({ value: Number(to) }, () => {
-        template(req, res, (Template, templateActions) => {
+        loadTemplate(req, res, (Template, templateActions) => {
             callback(
                 React.createClass({
                     render() {

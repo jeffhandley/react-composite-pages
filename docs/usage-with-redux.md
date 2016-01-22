@@ -98,7 +98,7 @@ import url from 'url';
 import Counter from './containers/Counter';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
-import template from '../../templates/full-page';
+import template from '../../templates/basic';
 import { bindActionCreators, createStore } from 'redux';
 import { RenderContainer } from 'react-composition';
 

@@ -48,7 +48,7 @@ export default React.createClass({
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import template from '../../templates/full-page';
+import template from '../../templates/basic';
 import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {
@@ -96,7 +96,7 @@ export default (req, res, callback) => {
 }
 ```
 
-**Page Template: `templates/full-page.js`**
+**Page Template: `templates/basic.js`**
 
 ``` jsx
 import React from 'react';

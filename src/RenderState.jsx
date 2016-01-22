@@ -10,7 +10,7 @@ const RenderState = React.createClass({
             React.PropTypes.number,
             React.PropTypes.object,
             React.PropTypes.string
-        ]).isRequired
+        ])
     },
 
     render() {
@@ -19,10 +19,16 @@ const RenderState = React.createClass({
 });
 
 function reducePropsToState(propsList) {
-    return propsList.reduce((reduced, state) => ({
-        ...reduced,
-        [state.id]: state.state
-    }), { });
+    return propsList.reduce((reduced, state) => {
+        if (state && state.id) {
+            return {
+                ...reduced,
+                [state.id]: state.state
+            };
+        } else {
+            return reduced;
+        }
+    }, { });
 }
 
 function handleStateChangeOnClient() {

@@ -144,7 +144,7 @@ import url from 'url';
 import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import * as actions from './actions';
-import template from '../../templates/full-page';
+import template from '../../templates/basic';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
 import { RenderContainer } from 'react-composition';

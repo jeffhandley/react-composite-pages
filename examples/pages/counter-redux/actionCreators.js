@@ -1,6 +1,8 @@
+import constants from './constants';
+
 export default {
     increment: (count = 1) => ({
-        type: 'INCREMENT',
-        count: count
+        type: constants.INCREMENT,
+        count
     })
 };

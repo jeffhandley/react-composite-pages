@@ -6,7 +6,8 @@ module.exports = {
   entry: {
     ['pages/counter-fluxible']: './pages/counter-fluxible/client.js',
     ['pages/counter-redux']: './pages/counter-redux/client.js',
-    ['pages/hello']: './pages/hello/client.js'
+    ['pages/hello']: './pages/hello/client.js',
+    ['templates/components/header']: './templates/components/header/client.js'
   },
   output: {
     path: path.join(__dirname, './lib/client'),

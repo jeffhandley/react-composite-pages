@@ -1,7 +1,7 @@
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import template from '../../templates/full-page';
+import template from '../../templates/basic';
 import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {

@@ -79,7 +79,7 @@ class RenderContainer extends Component {
             <div>
                 <div dangerouslySetInnerHTML={{ __html }} {...{ id }} />
                 <RenderState {...{ id, state }} />
-                <RenderClient src={ clientSrc } />
+                { clientSrc && <RenderClient src={ clientSrc } /> }
             </div>
         );
     }

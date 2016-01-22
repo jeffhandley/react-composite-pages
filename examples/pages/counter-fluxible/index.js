@@ -1,6 +1,6 @@
 import React from 'react';
 import url from 'url';
-import Counter from './Counter';
+import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import * as actions from './actions';
 import template from '../../templates/full-page';
@@ -12,14 +12,7 @@ import { RenderContainer } from 'react-composition';
 export default (req, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
 
-    const mapStoresToProps = (context) => {
-        const { value } = context.getStore(counterStore);
-        return { value };
-    };
-
-    const ConnectedCounter = connectToStores(Counter, [ counterStore ], mapStoresToProps);
-
-    const app = new Fluxible({ component: ConnectedCounter });
+    const app = new Fluxible();
     app.registerStore(counterStore);
 
     const context = app.createContext();
@@ -31,7 +24,6 @@ export default (req, callback) => {
                 React.createClass({
                     render() {
                         const state = app.dehydrate(context);
-                        const Component = app.getComponent();
 
                         return (
                             <Template
@@ -41,9 +33,7 @@ export default (req, callback) => {
                                   clientSrc='/client/pages/counter-fluxible.js'
                                   id='counter-fluxible'
                                   state={ state }>
-                                    <FluxibleComponent context={ context.getComponentContext() }>
-                                        <Component { ...actionCreators } />
-                                    </FluxibleComponent>
+                                    <Counter context={ context } />
                                 </RenderContainer>
                               }
                             />

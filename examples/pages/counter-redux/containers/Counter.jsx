@@ -1,6 +1,6 @@
 import React from 'react';
-import Counter from './Counter';
-import actionCreators from './actionCreators';
+import Counter from '../components/Counter';
+import actionCreators from '../actionCreators';
 import { connect, Provider } from 'react-redux';
 
 const mapStateToProps = (state) => ({

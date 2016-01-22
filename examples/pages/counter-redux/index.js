@@ -1,6 +1,6 @@
 import React from 'react';
 import url from 'url';
-import CounterContainer from './CounterContainer';
+import Counter from './containers/Counter';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import template from '../../templates/full-page';
@@ -25,7 +25,7 @@ export default (req, callback) => {
                               clientSrc='/client/pages/counter-redux.js'
                               id='counter-redux'
                               state={store.getState()}>
-                                <CounterContainer store={ store } />
+                                <Counter store={ store } />
                             </RenderContainer>
                           }
                         />

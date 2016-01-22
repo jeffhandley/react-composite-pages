@@ -38,7 +38,7 @@ export default React.createClass({
 });
 ```
 
-**Container Component (Server): `pages/hello/index.js`**
+**Server Page: `pages/hello/index.js`**
 
 ``` jsx
 import React from 'react';
@@ -149,7 +149,7 @@ export default (req, callback) => {
 }
 ```
 
-**Container Component (Client): `pages/hello/client.js`**
+**Client Entry Point: `pages/hello/client.js`**
 
 This is the client-side bundle entry point for the 'hello' page.
 
@@ -168,7 +168,7 @@ ReactDOM.render(
 );
 ```
 
-**Server: `server.js`**
+**Express Server: `server.js`**
 
 ``` jsx
 import express from 'express';

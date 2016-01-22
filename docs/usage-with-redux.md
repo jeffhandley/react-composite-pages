@@ -90,7 +90,7 @@ export default React.createClass({
 });
 ```
 
-**Server: `index.js`**
+**Server Page: `index.js`**
 
 ``` jsx
 import React from 'react';
@@ -132,7 +132,7 @@ export default (req, callback) => {
 }
 ```
 
-**Client: `client.js`**
+**Client Entry Point: `client.js`**
 
 ``` jsx
 import React from 'react';

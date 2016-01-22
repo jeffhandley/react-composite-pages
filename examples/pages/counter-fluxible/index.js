@@ -5,7 +5,6 @@ import counterStore from './counterStore';
 import * as actions from './actions';
 import template from '../../templates/full-page';
 import Fluxible from 'fluxible';
-import { connectToStores, FluxibleComponent } from 'fluxible-addons-react';
 import bindActionCreators from './bindActionCreators';
 import { RenderContainer } from 'react-composition';
 

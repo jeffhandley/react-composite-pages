@@ -21,4 +21,23 @@ app.get('*', (req, res, next) => {
 
 const server = app.listen(3000, () => {
     console.log('Listening on port 3000');
+    console.log('');
+
+    console.log('Hello World: http://localhost:3000/hello');
+    console.log('  Querystring Options:');
+    console.log('    to = The name the page says hello to');
+    console.log('    template = Page template to use: basic (default), header');
+    console.log('');
+
+    console.log('Redux-based Counter: http://localhost:3000/counter-redux');
+    console.log('  Querystring Options:');
+    console.log('    to = The initial counter value');
+    console.log('    template = Page template to use: basic (default), header');
+    console.log('');
+
+    console.log('Fluxible-based Counter: http://localhost:3000/counter-redux');
+    console.log('  Querystring Options:');
+    console.log('    to = The initial counter value');
+    console.log('    template = Page template to use: basic (default), header');
+    console.log('');
 });

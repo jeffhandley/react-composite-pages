@@ -5,7 +5,9 @@ import { RenderContainer } from 'react-composition';
 
 export default (req, res, callback) => {
     header(req, res, (Header, headerActions) => {
-        template(req, res, (Template, templateActions) => {
+        headerActions.signin('header-template-user');
+
+        template(req, res, (Template, templateActions) => {;
             callback(
                 React.createClass({
                     propTypes: {

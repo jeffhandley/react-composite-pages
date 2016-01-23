@@ -5,9 +5,22 @@ export default React.createClass({
         to: React.PropTypes.string.isRequired
     },
 
+    handleSignout(event) {
+        event.preventDefault();
+
+        window.Header.signout();
+        this.forceUpdate();
+    },
+
     render() {
         return (
-            <span>Hello {this.props.to}</span>
+            <span>
+                Hello {this.props.to}.&nbsp;
+
+                { typeof window !== 'undefined' && window.Header && window.Header.isSignedIn() && (
+                    <a onClick={ this.handleSignout } href='#'>Sign out</a>
+                ) }
+            </span>
         );
     }
 });

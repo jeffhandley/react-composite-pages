@@ -1,6 +1,6 @@
 # React-Composite-Pages
 
-React-Composite-Pages composes univeral components into pages using any combination of flux implementations.
+React-Composite-Pages composes universal components into pages using any combination of flux implementations.
 
 ## Scenarios
 

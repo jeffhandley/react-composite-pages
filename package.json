@@ -8,7 +8,7 @@
     "examples": "(cd examples && npm install && npm start)",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "postbuild": "cp package.json lib/package.json"
+    "postbuild": "cp LICENSE README.md package.json lib"
   },
   "repository": {
     "type": "git",

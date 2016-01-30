@@ -16,10 +16,13 @@
   },
   "keywords": [
     "react",
-    "master",
+    "composite",
+    "universal",
     "pages",
     "page",
-    "templates"
+    "master",
+    "templates",
+    "composition"
   ],
   "author": "Jeff Handley",
   "license": "Apache-2.0",

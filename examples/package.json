@@ -29,11 +29,13 @@
     "express-beautify": "^0.1.2",
     "fluxible": "^1.0.3",
     "fluxible-addons-react": "^0.2.2",
+    "history": "^1.17.0",
     "lodash": "^4.0.0",
     "react": "^0.14.6",
     "react-composition": "file:../lib",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
+    "react-router": "^1.0.3",
     "react-side-effect": "^1.0.2",
     "redux": "^3.0.5"
   }

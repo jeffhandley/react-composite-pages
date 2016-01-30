@@ -10,10 +10,6 @@ const app = express();
 app.use(beautify());
 app.use('/client', express.static('lib/client'));
 
-app.get('/favicon.ico', (req, res, next) => {
-    res.send();
-});
-
 app.get('*', (req, res, next) => {
     const { query: { pretty } } = url.parse(req.url, true);
 
@@ -37,7 +33,7 @@ app.get('*', (req, res, next) => {
     });
 });
 
-const server = app.listen(3000, () => {
+app.listen(3000, () => {
     console.log('Listening on port 3000');
     console.log('');
 

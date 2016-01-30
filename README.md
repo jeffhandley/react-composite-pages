@@ -183,25 +183,41 @@ ReactDOM.render(
 ``` jsx
 import express from 'express';
 import url from 'url';
-import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import routes from './routes';
+import { match } from 'react-router';
 
 const app = express();
 app.use('/client', express.static('lib/client'));
 
 app.get('*', (req, res, next) => {
-    const { pathname } = url.parse(req.url, true);
-    const { default: loadPage } = require('./' + path.join('pages/', pathname));
+    const { query: { pretty } } = url.parse(req.url, true);
 
-    loadPage(req, (Page, pageActions) => {
-        res.send(ReactDOMServer.renderToStaticMarkup(<Page />));
+    match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+        if (error) {
+            res.status(500).send(error.message)
+        } else if (redirectLocation) {
+            res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+        } else if (renderProps) {
+            const loadPage = renderProps.components[renderProps.components.length - 1];
+
+            loadPage(req, res, (Page) => {
+                res.status(200);
+
+                const send = (pretty ? res.sendHTML : res.send).bind(res);
+                send(ReactDOMServer.renderToStaticMarkup(<Page />));
+            });
+        } else {
+            res.status(404).send('Not found')
+        }
     });
 });
 
-const server = app.listen(3000, () => {
+app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
+
 ```
 
 ## Rendered HTML

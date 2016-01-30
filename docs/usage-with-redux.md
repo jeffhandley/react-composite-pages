@@ -1,6 +1,6 @@
 # Usage With Redux
 
-React-Composition allows you to very easily compose Redux-driven components into pages.  Beyond the Hello World example, only a few additions need to be made.
+React-Composite-Pages allows you to very easily compose Redux-driven components into pages.  Beyond the Hello World example, only a few additions need to be made.
 
 1. Introduce your reducers and action creators
 1. Introduce a Container component that wraps Redux around your Presentational component
@@ -100,7 +100,7 @@ import reducers from './reducers';
 import actionCreators from './actionCreators';
 import template from '../../templates/basic';
 import { bindActionCreators, createStore } from 'redux';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
@@ -140,7 +140,7 @@ import ReactDOM from 'react-dom';
 import Counter from './containers/Counter';
 import reducers from './reducers';
 import { createStore } from 'redux';
-import { getRenderState } from 'react-composition/client';
+import { getRenderState } from 'react-composite-pages/client';
 
 const state = getRenderState('counter-redux');
 const store = createStore(reducers, state);

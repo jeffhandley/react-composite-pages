@@ -1,7 +1,7 @@
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation

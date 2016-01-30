@@ -1,6 +1,6 @@
-# React-Composition
+# React-Composite-Pages
 
-React-Composition composes univeral components into pages using any combination of flux implementations.
+React-Composite-Pages composes univeral components into pages using any combination of flux implementations.
 
 ## Scenarios
 
@@ -12,11 +12,11 @@ There are many scenarios for composing multiple React Container Components toget
 1. Dashboard screens that comprise many independent sections
 1. Composition of components using different flux implementations (or versions)
 
-React-Composition renders multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
+React-Composite-Pages renders multiple Container Components on a page, regardless of flux implementation, yet still achieve universal rendering.
 
 ## Running the Examples
 
-To run the examples, you first need to build the react-composition package, and then start up the examples server.  This has all been wrapped up into a single command at the root of the repository
+To run the examples, you first need to build the react-composite-pages package, and then start up the examples server.  This has all been wrapped up into a single command at the root of the repository
 
 `npm run examples`
 
@@ -55,7 +55,7 @@ import React from 'react';
 import url from 'url';
 import Hello from './Hello';
 import template from '../../templates/basic';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation
@@ -106,7 +106,7 @@ export default (req, res, callback) => {
 
 ``` jsx
 import React from 'react';
-import { RenderContainer, RenderClient } from 'react-composition';
+import { RenderContainer, RenderClient } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template
@@ -122,9 +122,9 @@ export default (req, res, callback) => {
             getDefaultProps() {
                 return {
                     footer: (
-                        <div>React-Composition</div>
+                        <div>React-Composite-Pages</div>
                     ),
-                    title: 'React-Composition'
+                    title: 'React-Composite-Pages'
                 };
             },
 
@@ -167,7 +167,7 @@ This is the client-side bundle entry point for the 'hello' page.
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Hello from './Hello';
-import { getRenderState } from 'react-composition/client';
+import { getRenderState } from 'react-composite-pages/client';
 
 const state = getRenderState('hello-container');
 const container = document.getElementById('hello-container');
@@ -245,14 +245,14 @@ This approach ensures that each Container Component can perform client-side rend
 
 ## Advanced Topics (WIP)
 
-1. [Usage with Redux](https://github.com/jeffhandley/react-composition/blob/master/docs/usage-with-redux.md)
-1. [Usage with Fluxible](https://github.com/jeffhandley/react-composition/blob/master/docs/usage-with-fluxible.md)
-1. [Nested page templates](https://github.com/jeffhandley/react-composition/blob/master/docs/nested-page-templates.md)
+1. [Usage with Redux](https://github.com/jeffhandley/react-composite-pages/blob/master/docs/usage-with-redux.md)
+1. [Usage with Fluxible](https://github.com/jeffhandley/react-composite-pages/blob/master/docs/usage-with-fluxible.md)
+1. [Nested page templates](https://github.com/jeffhandley/react-composite-pages/blob/master/docs/nested-page-templates.md)
 1. Exposing functions for a Container Component's external API
 
 ## Summary
 
-The patterns set forth by React-Composition are very straight-forward:
+The patterns set forth by React-Composite-Pages are very straight-forward:
 
 1. *Server Pages* export functions that accept the request, response, and a callback (similar to Express middleware)
     * The callback will receive a React component

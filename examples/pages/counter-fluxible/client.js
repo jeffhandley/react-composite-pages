@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import Fluxible from 'fluxible';
-import { getRenderState } from 'react-composition/client';
+import { getRenderState } from 'react-composite-pages/client';
 
 const state = getRenderState('counter-fluxible');
 

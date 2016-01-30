@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template
@@ -20,7 +20,7 @@ export default (req, res, callback) => {
                             Default footer provided by the basic template
                         </div>
                     ),
-                    title: 'React-Composition'
+                    title: 'React-Composite-Pages'
                 };
             },
 

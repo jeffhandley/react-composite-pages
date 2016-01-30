@@ -1,7 +1,7 @@
 import React from 'react';
 import header from './components/header';
 import template from './basic';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     header(req, res, (Header, headerActions) => {

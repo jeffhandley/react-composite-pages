@@ -5,7 +5,7 @@ import counterStore from './counterStore';
 import * as actions from './actions';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0, template = 'basic' } = url.parse(req.url, true).query;

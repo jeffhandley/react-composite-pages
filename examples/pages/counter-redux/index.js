@@ -4,7 +4,7 @@ import Counter from './containers/Counter';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { bindActionCreators, createStore } from 'redux';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0, template = 'basic' } = url.parse(req.url, true).query;

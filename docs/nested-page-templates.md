@@ -1,6 +1,6 @@
 # Nested Page Templates
 
-React-Composition encourages as layered composition pattern that makes nested page templates very easy to achieve.  The examples in the project demonstrate pages that can be rendered using different page templates, including nested templates.
+React-Composite-Pages encourages as layered composition pattern that makes nested page templates very easy to achieve.  The examples in the project demonstrate pages that can be rendered using different page templates, including nested templates.
 
 ## Contract
 
@@ -35,7 +35,7 @@ import React from 'react';
 import url from 'url';
 import Hello from './Hello';
 import template from '../../templates/header';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     template(req, res, (Template, templateFunctions) => {
@@ -65,7 +65,7 @@ export default (req, res, callback) => {
 import React from 'react';
 import header from './components/header';
 import template from './basic';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // Load the Header component and its actions
@@ -108,7 +108,7 @@ export default (req, res, callback) => {
 ``` jsx
 import React from 'react';
 import Footer from './components/Footer';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     callback(
@@ -127,7 +127,7 @@ export default (req, res, callback) => {
                             Default footer provided by the basic template
                         </div>
                     ),
-                    title: 'React-Composition'
+                    title: 'React-Composite-Pages'
                 };
             },
 
@@ -173,7 +173,7 @@ import Header from './containers/Header';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { bindActionCreators, createStore } from 'redux';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { username } = url.parse(req.url, true).query;
@@ -206,7 +206,7 @@ import ReactDOM from 'react-dom';
 import Header from './containers/Header';
 import reducers from './reducers';
 import { createStore } from 'redux';
-import { getRenderState } from 'react-composition/client';
+import { getRenderState } from 'react-composite-pages/client';
 
 const state = getRenderState('header');
 const store = createStore(reducers, state);

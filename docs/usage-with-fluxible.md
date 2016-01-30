@@ -1,6 +1,6 @@
 # Usage With Fluxible
 
-React-Composition allows you to very easily compose Fluxible-driven components into pages.  Beyond the Hello World example, only a few additions need to be made.
+React-Composite-Pages allows you to very easily compose Fluxible-driven components into pages.  Beyond the Hello World example, only a few additions need to be made.
 
 1. Introduce your stores and actions
 1. Introduce a Container component that wraps Fluxible around your Presentational component
@@ -147,7 +147,7 @@ import * as actions from './actions';
 import template from '../../templates/basic';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
-import { RenderContainer } from 'react-composition';
+import { RenderContainer } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
@@ -195,7 +195,7 @@ import ReactDOM from 'react-dom';
 import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import Fluxible from 'fluxible';
-import { getRenderState } from 'react-composition/client';
+import { getRenderState } from 'react-composite-pages/client';
 
 const state = getRenderState('counter-fluxible');
 

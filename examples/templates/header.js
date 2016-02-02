@@ -22,7 +22,7 @@ export default (req, res, callback) => {
                                 { ...this.props }
                                 body={
                                     <div className='template-section'>
-                                        <div className='template-section-header'>
+                                        <div className='template-header'>
                                             Template: <b>header</b> (modifies the body of the basic template)
                                         </div>
                                         <div className='template-section-note'>

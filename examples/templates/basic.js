@@ -44,6 +44,12 @@ export default (req, res, callback) => {
                                     border: 1px solid black;
                                 }
 
+                                DIV.template-section DIV.template-header {
+                                    padding: 4px;
+                                    background: chocolate;
+                                    border-bottom: 1px solid black;
+                                }
+
                                 DIV.template-section DIV.template-section-header {
                                     padding: 4px;
                                     background: silver;
@@ -58,7 +64,7 @@ export default (req, res, callback) => {
                                 }
 
                                 DIV.template-section DIV.template-section-body {
-                                    padding: 4px;
+                                    padding: 4px 40px;
                                 }
 
                                 DIV.component {
@@ -86,7 +92,7 @@ export default (req, res, callback) => {
                         </head>
                         <body>
                             <div className='template-section'>
-                                <div className='template-section-header'>
+                                <div className='template-header'>
                                     Template: <b>basic</b>
                                 </div>
                                 <div className='template-section-note'>

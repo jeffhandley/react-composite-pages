@@ -36,7 +36,10 @@ export default (req, res, callback) => {
                             footer={
                                 // The footer doesn't use universal rendering
                                 // It will be rendered as static HTML
-                                <span>It's nice to see you again!</span>
+                                <span>
+                                    The Hello page provided this footer content.
+                                    It is only rendered on the server.
+                                </span>
                             }
                         />
                     );

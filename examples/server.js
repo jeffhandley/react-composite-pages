@@ -15,9 +15,9 @@ app.get('*', (req, res, next) => {
 
     match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
         if (error) {
-            res.status(500).send(error.message)
+            res.status(500).send(error.message);
         } else if (redirectLocation) {
-            res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+            res.redirect(302, redirectLocation.pathname + redirectLocation.search);
         } else if (renderProps) {
             const loadPage = renderProps.components[renderProps.components.length - 1];
 
@@ -28,7 +28,7 @@ app.get('*', (req, res, next) => {
                 send(ReactDOMServer.renderToStaticMarkup(<Page />));
             });
         } else {
-            res.status(404).send('Not found')
+            res.status(404).send('Not found');
         }
     });
 });

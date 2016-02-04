@@ -265,6 +265,10 @@ This approach ensures that each Container Component can perform client-side rend
 1. [Usage with Fluxible](https://github.com/jeffhandley/react-composite-pages/blob/master/docs/usage-with-fluxible.md)
 1. [Nested page templates](https://github.com/jeffhandley/react-composite-pages/blob/master/docs/nested-page-templates.md)
 
+There's also a post that walks through the inspiration behind React-Composite-Pages:
+
+[A pattern for server-side async data loading with React components](https://gist.github.com/jeffhandley/9dcfe349319fc3583161)
+
 ## Summary
 
 The patterns set forth by React-Composite-Pages are very straight-forward:

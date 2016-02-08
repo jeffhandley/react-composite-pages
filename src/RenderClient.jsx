@@ -22,7 +22,39 @@ function reducePropsToState(propsList) {
 function handleStateChangeOnClient() {
 }
 
-export default withSideEffect(
+const RenderClientWithSideEffect = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient
 )(RenderClient);
+
+RenderClientWithSideEffect.Script = React.createClass({
+    displayName: 'RenderClient',
+
+    propTypes: {
+        clients: React.PropTypes.arrayOf(React.PropTypes.string)
+    },
+
+    render() {
+        const { clients } = this.props;
+
+        if (clients && clients.length) {
+            if (clients.length === 1) {
+                return <script src={clients[0]} />
+            } else {
+                return (
+                    <div>
+                    {
+                        clients.map((client) => (
+                            <script key={client} src={client} />
+                        ))
+                    }
+                    </div>
+                );
+            }
+        } else {
+            return false;
+        }
+    }
+});
+
+export default RenderClientWithSideEffect;

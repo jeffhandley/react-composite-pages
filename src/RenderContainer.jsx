@@ -10,45 +10,10 @@ const _ = {
 class RenderContainer extends Component {
     static rewind() {
         const _state = RenderState.rewind();
+        const state = ({id}) => (<RenderState.Script {...{id, state: _state}} />);
+
         const _clients = RenderClient.rewind();
-
-        const state = React.createClass({
-            render() {
-                if (_state) {
-                    return (
-                        <script
-                            dangerouslySetInnerHTML={{
-                                __html: `window.RenderState = ${JSON.stringify(_state)};`
-                            }}
-                        />
-                    );
-                } else {
-                    return false;
-                }
-            }
-        });
-
-        const clients = React.createClass({
-            render() {
-                if (_clients && _clients.length) {
-                    if (_clients.length === 1) {
-                        return <script src={_clients[0]} />
-                    } else {
-                        return (
-                            <div>
-                            {
-                                _clients.map((client) => (
-                                    <script key={client} src={client} />
-                                ))
-                            }
-                            </div>
-                        );
-                    }
-                } else {
-                    return false;
-                }
-            }
-        });
+        const clients = () => (<RenderClient.Script clients={_clients} />);
 
         return { state, clients, _state, _clients };
     }
@@ -78,7 +43,7 @@ class RenderContainer extends Component {
         return (
             <div>
                 <div dangerouslySetInnerHTML={{ __html }} {...{ id }} />
-                <RenderState {...{ id, state }} />
+                { typeof state !== 'undefined' && <RenderState {...{ id, state }} /> }
                 { clientSrc && <RenderClient src={ clientSrc } /> }
             </div>
         );

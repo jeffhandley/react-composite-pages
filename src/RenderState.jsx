@@ -34,7 +34,36 @@ function reducePropsToState(propsList) {
 function handleStateChangeOnClient() {
 }
 
-export default withSideEffect(
+const RenderStateWithSideEffect = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient
 )(RenderState);
+
+RenderStateWithSideEffect.Script = React.createClass({
+    displayName: 'RenderState',
+
+    propTypes: {
+        id: React.PropTypes.string,
+        state: React.PropTypes.object
+    },
+
+    getDefaultProps() {
+        return {
+            id: 'RenderState'
+        };
+    },
+
+    render() {
+        const { id, state } = this.props;
+
+        return state && (
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `window.${id} = ${JSON.stringify(state)};`
+                }}
+            />
+        );
+    }
+});
+
+export default RenderStateWithSideEffect;

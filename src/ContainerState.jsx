@@ -1,7 +1,11 @@
 import React from 'react';
 import withSideEffect from 'react-side-effect';
 
-const RenderState = React.createClass({
+const _ = {
+    isUndefined: require('lodash/isUndefined')
+};
+
+const ContainerState = React.createClass({
     propTypes: {
         id: React.PropTypes.string.isRequired,
         state: React.PropTypes.oneOfType([
@@ -20,7 +24,7 @@ const RenderState = React.createClass({
 
 function reducePropsToState(propsList) {
     return propsList.reduce((reduced, state) => {
-        if (state && state.id) {
+        if (!_.isUndefined(state) && state.id) {
             return {
                 ...reduced,
                 [state.id]: state.state
@@ -34,36 +38,7 @@ function reducePropsToState(propsList) {
 function handleStateChangeOnClient() {
 }
 
-const RenderStateWithSideEffect = withSideEffect(
+export default withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient
-)(RenderState);
-
-RenderStateWithSideEffect.Script = React.createClass({
-    displayName: 'RenderState',
-
-    propTypes: {
-        id: React.PropTypes.string,
-        state: React.PropTypes.object
-    },
-
-    getDefaultProps() {
-        return {
-            id: 'RenderState'
-        };
-    },
-
-    render() {
-        const { id, state } = this.props;
-
-        return state && (
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `window.${id} = ${JSON.stringify(state)};`
-                }}
-            />
-        );
-    }
-});
-
-export default RenderStateWithSideEffect;
+)(ContainerState);

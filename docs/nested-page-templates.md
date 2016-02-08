@@ -35,7 +35,7 @@ import React from 'react';
 import url from 'url';
 import Hello from './Hello';
 import template from '../../templates/header';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     template(req, res, (Template, templateFunctions) => {
@@ -65,7 +65,7 @@ export default (req, res, callback) => {
 import React from 'react';
 import header from './components/header';
 import template from './basic';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // Load the Header component and its actions
@@ -108,7 +108,7 @@ export default (req, res, callback) => {
 ``` jsx
 import React from 'react';
 import Footer from './components/Footer';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     callback(
@@ -135,7 +135,7 @@ export default (req, res, callback) => {
                 // Render the template's elements, capturing all of the
                 // required state and client scripts.
                 const { body, footer } = this.props;
-                const template = RenderContainer.renderTemplate({ body, footer });
+                const template = Container.renderTemplate({ body, footer });
 
                 // The output includes `state` and `clients` components plus
                 // a `sections` object with components for each element
@@ -173,7 +173,7 @@ import Header from './containers/Header';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { bindActionCreators, createStore } from 'redux';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { username } = url.parse(req.url, true).query;
@@ -184,12 +184,12 @@ export default (req, res, callback) => {
         React.createClass({
             render() {
                 return (
-                    <RenderContainer
+                    <Container
                       clientSrc='/client/templates/components/header.js'
                       id='header'
                       state={store.getState()}>
                         <Header store={ store } />
-                    </RenderContainer>
+                    </Container>
                 );
             }
         }),
@@ -206,9 +206,9 @@ import ReactDOM from 'react-dom';
 import Header from './containers/Header';
 import reducers from './reducers';
 import { createStore } from 'redux';
-import { getRenderState } from 'react-composite-pages/client';
+import { getContainerState } from 'react-composite-pages/client';
 
-const state = getRenderState('header');
+const state = getContainerState('header');
 const store = createStore(reducers, state);
 const container = document.getElementById('header');
 

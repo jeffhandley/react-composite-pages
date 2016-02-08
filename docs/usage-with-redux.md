@@ -100,7 +100,7 @@ import reducers from './reducers';
 import actionCreators from './actionCreators';
 import template from '../../templates/basic';
 import { bindActionCreators, createStore } from 'redux';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0 } = url.parse(req.url, true).query;
@@ -115,12 +115,12 @@ export default (req, res, callback) => {
                         <Template
                           title='Redux Counter'
                           body={
-                            <RenderContainer
+                            <Container
                               clientSrc='/client/pages/counter-redux.js'
                               id='counter-redux'
                               state={store.getState()}>
                                 <Counter store={ store } />
-                            </RenderContainer>
+                            </Container>
                           }
                         />
                     );
@@ -140,9 +140,9 @@ import ReactDOM from 'react-dom';
 import Counter from './containers/Counter';
 import reducers from './reducers';
 import { createStore } from 'redux';
-import { getRenderState } from 'react-composite-pages/client';
+import { getContainerState } from 'react-composite-pages/client';
 
-const state = getRenderState('counter-redux');
+const state = getContainerState('counter-redux');
 const store = createStore(reducers, state);
 const container = document.getElementById('counter-redux');
 

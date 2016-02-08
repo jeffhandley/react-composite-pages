@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import Counter from './containers/Counter';
 import counterStore from './counterStore';
 import Fluxible from 'fluxible';
-import { getRenderState } from 'react-composite-pages/client';
+import { getContainerState } from 'react-composite-pages/client';
 
-const state = getRenderState('counter-fluxible');
+const state = getContainerState('counter-fluxible');
 
 const app = new Fluxible();
 app.registerStore(counterStore);

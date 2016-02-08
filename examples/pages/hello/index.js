@@ -1,7 +1,7 @@
 import React from 'react';
 import url from 'url';
 import Hello from './Hello';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation
@@ -23,15 +23,13 @@ export default (req, res, callback) => {
                             title={`Hello ${to}`}
                             body={
                                 // The body supports universal rendering
-                                // It is wrapped in a RenderContainer to
+                                // It is wrapped in a Container to
                                 // configure its required client script,
                                 // initial state, and container element id.
-                                <RenderContainer
-                                  clientSrc='/client/pages/hello.js'
-                                  id='hello-container'
-                                  state={state}>
+                                <Container
+                                  id='hello-container'>
                                     <Hello to={to} />
-                                </RenderContainer>
+                                </Container>
                             }
                             footer={
                                 // The footer doesn't use universal rendering

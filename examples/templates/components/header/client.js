@@ -4,9 +4,9 @@ import Header from './containers/Header';
 import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { createStore, bindActionCreators } from 'redux';
-import { getRenderState } from 'react-composite-pages/client';
+import { getContainerState } from 'react-composite-pages/client';
 
-const state = getRenderState('header');
+const state = getContainerState('header');
 const store = createStore(reducers, state);
 const container = document.getElementById('header');
 

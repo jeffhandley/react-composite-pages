@@ -9,7 +9,7 @@
     "preinstall": "(npm install linklocal@2.5.2) && (npm run link)",
     "predev": "webpack",
     "dev": "babel-node server",
-    "start": "nodemon --ignore lib/ -e js,jsx --exec npm run dev"
+    "start": "nodemon --watch ./ --watch ../lib/ --ignore lib/ -e js,jsx --exec npm run dev"
   },
   "author": "Jeff Handley",
   "license": "Apache-2.0",

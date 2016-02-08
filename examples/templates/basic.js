@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
-import { RenderContainer } from 'react-composite-pages';
+import { PageState, PageClients, renderTemplate } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template
@@ -28,7 +28,7 @@ export default (req, res, callback) => {
                 // Render the template's elements, capturing all of the
                 // required state and client scripts.
                 const { body, footer } = this.props;
-                const template = RenderContainer.renderTemplate({ body, footer });
+                const template = renderTemplate({ body, footer });
 
                 // The output includes `state` and `clients` components plus
                 // a `sections` object with components for each element
@@ -109,9 +109,8 @@ export default (req, res, callback) => {
                                             <template.sections.body />
                                         </div>
                                     </div>
-                                    <template.state />
-                                    <script src='/client/common.js' />
-                                    <template.clients />
+                                    <PageState state={template.state} />
+                                    <PageClients clients={['/client/common.js', ...template.clients]} />
                                     <hr />
                                     <div className='template-section'>
                                         <div className='template-section-header'>

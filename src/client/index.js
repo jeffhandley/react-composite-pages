@@ -1,1 +1,1 @@
-export { default as getRenderState } from './getRenderState';
+export { default as getContainerState } from './getContainerState';

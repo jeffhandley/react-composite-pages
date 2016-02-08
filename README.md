@@ -55,7 +55,7 @@ import React from 'react';
 import url from 'url';
 import Hello from './Hello';
 import template from '../../templates/basic';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation
@@ -64,7 +64,7 @@ export default (req, res, callback) => {
     // This could be the creation of a flux/redux store
     const state = { to };
 
-    // Load the Template Container Component using this same approach
+    // Load the Template Component using this same approach
     template(req, (Template, templateFunctions) => {
         // Render ourselves inside the loaded Template
         // Specify both a body and a footer for the template
@@ -76,15 +76,15 @@ export default (req, res, callback) => {
                             title={`Hello ${to}`}
                             body={
                                 // The body supports universal rendering
-                                // It is wrapped in a RenderContainer to
+                                // It is wrapped in a Container to
                                 // configure its required client script,
                                 // initial state, and container element id.
-                                <RenderContainer
+                                <Container
                                   clientSrc='/client/pages/hello.js'
                                   id='hello-container'
                                   state={state}>
                                     <Hello to={to} />
-                                </RenderContainer>
+                                </Container>
                             }
                             footer={
                                 // The footer doesn't use universal rendering
@@ -106,7 +106,7 @@ export default (req, res, callback) => {
 
 ``` jsx
 import React from 'react';
-import { RenderContainer, RenderClient } from 'react-composite-pages';
+import { renderTemplate, PageClients, PageState } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template
@@ -132,7 +132,7 @@ export default (req, res, callback) => {
                 // Render the template's elements, capturing all of the
                 // required state and client scripts.
                 const { body, footer } = this.props;
-                const template = RenderContainer.renderTemplate({ body, footer });
+                const template = renderTemplate({ body, footer });
 
                 // The output includes `state` and `clients` components plus
                 // a `sections` object with components for each element
@@ -145,9 +145,9 @@ export default (req, res, callback) => {
                         </head>
                         <body>
                             <template.sections.body />
-                            <template.state />
+                            <PageState state={template.state} />
                             <script src='/client/common.js' />
-                            <template.clients />
+                            <PageClients clients={template.clients} />
                             <hr />
                             <template.sections.footer />
                         </body>
@@ -167,9 +167,9 @@ This is the client-side bundle entry point for the 'hello' page.
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Hello from './Hello';
-import { getRenderState } from 'react-composite-pages/client';
+import { getContainerState } from 'react-composite-pages/client';
 
-const state = getRenderState('hello-container');
+const state = getContainerState('hello-container');
 const container = document.getElementById('hello-container');
 
 ReactDOM.render(
@@ -224,7 +224,7 @@ app.listen(3000, () => {
 
 The server is using `ReactDOMServer.renderToStaticMarkup()` to render the `<Page />` that was loaded.  This allows the `<html>` tag and other elements from the page template to be rendered as static HTML rather than with react attributes.
 
-However, if we examine the output for this page, we'll see that react attributes are applied to each element that was within a `<RenderContainer>`.
+However, if we examine the output for this page, we'll see that react attributes are applied to each element that was within a `<Container>`.
 
 ``` html
 <html>
@@ -241,7 +241,7 @@ However, if we examine the output for this page, we'll see that react attributes
     </div>
   </div>
   <script>
-    window.RenderState = {
+    window.ContainerState = {
       "hello-container": {
         "to": "World"
       }
@@ -255,7 +255,7 @@ However, if we examine the output for this page, we'll see that react attributes
 </html>
 ```
 
-This happens because the `RenderContainer` renders its own children using `ReactDOMServer.renderToString()` and wraps that React-enabled markup in a `<div>`.  In the example above, we see `<div id="hello-container">` that corresponds to the `<RenderContainer>`.
+This happens because the `Container` renders its own children using `ReactDOMServer.renderToString()` and wraps that React-enabled markup in a `<div>`.  In the example above, we see `<div id="hello-container">` that corresponds to the `<Container>`.
 
 This approach ensures that each Container Component can perform client-side rendering cleanly, gaining a flicker-free initial render, and no warnings about rendering React components into elements that themselves were rendered from React.
 
@@ -277,8 +277,8 @@ The patterns set forth by React-Composite-Pages are very straight-forward:
     * The callback will receive a React component
     * Functions can also be specified to represent the Container Component's external API
 1. The React components can use *Page Templates* with template sections
-    * Template sections are Container Components wrapped in a `RenderContainer`
-    * The `RenderContainer` receives state and client script to be used for client-side rendering
+    * Template sections are Components wrapped in a `Container`
+    * The `Container` receives state and client script to be used for client-side rendering
 1. The server simply loads a page and renders its React component
     * The server code does not need to be aware of which page template to render; the page wraps itself in the appropriate template
     * The server code remains independent from any flux implementation in use on the page

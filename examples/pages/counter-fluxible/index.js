@@ -5,7 +5,7 @@ import counterStore from './counterStore';
 import * as actions from './actions';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
-import { RenderContainer } from 'react-composite-pages';
+import { Container } from 'react-composite-pages';
 
 export default (req, res, callback) => {
     const { to = 0, template = 'basic' } = url.parse(req.url, true).query;
@@ -28,12 +28,12 @@ export default (req, res, callback) => {
                             <Template
                               title='Fluxible Counter'
                               body={
-                                <RenderContainer
+                                <Container
                                   clientSrc='/client/pages/counter-fluxible.js'
                                   id='counter-fluxible'
                                   state={ state }>
                                     <Counter context={ context } />
-                                </RenderContainer>
+                                </Container>
                               }
                             />
                         );

@@ -27,7 +27,9 @@ export default (req, res, callback) => {
                                 // configure its required client script,
                                 // initial state, and container element id.
                                 <Container
-                                  id='hello-container'>
+                                  clientSrc='/client/pages/hello.js'
+                                  id='hello-container'
+                                  state={state}>
                                     <Hello to={to} />
                                 </Container>
                             }

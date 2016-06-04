@@ -31,7 +31,7 @@
     "fluxible-addons-react": "^0.2.2",
     "history": "^1.17.0",
     "lodash": "^4.0.0",
-    "react": "^0.14.6",
+    "react": "^15.1.0",
     "react-composite-pages": "file:../lib",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",

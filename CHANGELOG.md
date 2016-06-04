@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.3.0
+## 0.3.1
 
 Upgrade to React 15.1.0
 

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.0
+
+Upgrade to React 15.1.0
+
 ## 0.2.0
 
 ### API changes

@@ -7,7 +7,6 @@ import Fluxible from 'fluxible';
 import { connectToStores, FluxibleComponent } from 'fluxible-addons-react';
 import bindActionCreators from '../bindActionCreators';
 import ReactCreateClass from 'create-react-class';
-import ReactCreateClass from 'create-react-class';
 
 const mapStoresToProps = (context) => {
     const { value } = context.getStore(counterStore);

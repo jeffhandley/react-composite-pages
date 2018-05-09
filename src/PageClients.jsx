@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ReactCreateClass from 'create-react-class';
 
 const _ = {
 	isUndefined: require('lodash/isUndefined')
 };
 
-export default React.createClass({
+export default ReactCreateClass({
     displayName: 'PageClients',
 
     propTypes: {
-        clients: React.PropTypes.arrayOf(React.PropTypes.string)
+        clients: PropTypes.arrayOf(PropTypes.string)
     },
 
     render() {

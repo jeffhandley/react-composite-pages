@@ -6,6 +6,7 @@ import * as actions from './actions';
 import Fluxible from 'fluxible';
 import bindActionCreators from './bindActionCreators';
 import { Container } from 'react-composite-pages';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     const { to = 0, template = 'basic' } = url.parse(req.url, true).query;
@@ -20,7 +21,7 @@ export default (req, res, callback) => {
     actionCreators.setValue({ value: Number(to) }, () => {
         loadTemplate(req, res, (Template, templateActions) => {
             callback(
-                React.createClass({
+                ReactCreateClass({
                     render() {
                         const state = app.dehydrate(context);
 

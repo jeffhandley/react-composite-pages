@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ReactCreateClass from 'create-react-class';
 
-export default React.createClass({
+export default ReactCreateClass({
     propTypes: {
-        to: React.PropTypes.string.isRequired
+        to: PropTypes.string.isRequired
     },
 
     handleSignout(event) {

@@ -2,6 +2,7 @@ import React from 'react';
 import url from 'url';
 import Hello from './Hello';
 import { Container } from 'react-composite-pages';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     // This could be an async data fetching operation
@@ -16,7 +17,7 @@ export default (req, res, callback) => {
         // Render ourselves inside the loaded Template
         // Specify both a body and a footer for the template
         callback(
-            React.createClass({
+            ReactCreateClass({
                 render() {
                     return (
                         <Template

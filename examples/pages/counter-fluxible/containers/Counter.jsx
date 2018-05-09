@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Counter from '../components/Counter';
 import counterStore from '../counterStore';
@@ -5,6 +6,7 @@ import * as actions from '../actions';
 import Fluxible from 'fluxible';
 import { connectToStores, FluxibleComponent } from 'fluxible-addons-react';
 import bindActionCreators from '../bindActionCreators';
+import ReactCreateClass from 'create-react-class';
 
 const mapStoresToProps = (context) => {
     const { value } = context.getStore(counterStore);
@@ -13,9 +15,9 @@ const mapStoresToProps = (context) => {
 
 const ConnectedCounter = connectToStores(Counter, [ counterStore ], mapStoresToProps);
 
-export default React.createClass({
+export default ReactCreateClass({
     propTypes: {
-        context: React.PropTypes.object.isRequired
+        context: PropTypes.object.isRequired
     },
 
     render() {

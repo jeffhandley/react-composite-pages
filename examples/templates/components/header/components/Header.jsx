@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ReactCreateClass from 'create-react-class';
 
-export default React.createClass({
+export default ReactCreateClass({
     propTypes: {
-        signin: React.PropTypes.func.isRequired,
-        signout: React.PropTypes.func.isRequired,
-        username: React.PropTypes.string
+        signin: PropTypes.func.isRequired,
+        signout: PropTypes.func.isRequired,
+        username: PropTypes.string
     },
 
     handleSignin() {

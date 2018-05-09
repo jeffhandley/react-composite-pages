@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const _ = {
@@ -8,7 +9,7 @@ export default React.createClass({
     displayName: 'PageClients',
 
     propTypes: {
-        clients: React.PropTypes.arrayOf(React.PropTypes.string)
+        clients: PropTypes.arrayOf(PropTypes.string)
     },
 
     render() {

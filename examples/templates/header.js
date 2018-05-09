@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import header from './components/header';
 import template from './basic';
@@ -10,7 +11,7 @@ export default (req, res, callback) => {
             callback(
                 React.createClass({
                     propTypes: {
-                        body: React.PropTypes.element.isRequired
+                        body: PropTypes.element.isRequired
                     },
 
                     render() {

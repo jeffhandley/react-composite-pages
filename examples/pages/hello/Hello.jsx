@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default React.createClass({
     propTypes: {
-        to: React.PropTypes.string.isRequired
+        to: PropTypes.string.isRequired
     },
 
     handleSignout(event) {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Counter from '../components/Counter';
 import actionCreators from '../actionCreators';
@@ -11,7 +12,7 @@ const ConnectedCounter = connect(mapStateToProps, actionCreators)(Counter);
 
 export default React.createClass({
     propTypes: {
-        store: React.PropTypes.object.isRequired
+        store: PropTypes.object.isRequired
     },
 
     render() {

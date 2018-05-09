@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import withSideEffect from 'react-side-effect';
 
@@ -7,7 +8,7 @@ const _ = {
 
 const ContainerClient = React.createClass({
     propTypes: {
-        src: React.PropTypes.string.isRequired
+        src: PropTypes.string.isRequired
     },
 
     render() {

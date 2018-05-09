@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactCreateClass from 'create-react-class';
 
-export default React.createClass({
+export default ReactCreateClass({
     render() {
         return (
             <div>

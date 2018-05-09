@@ -5,6 +5,7 @@ import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { bindActionCreators, createStore } from 'redux';
 import { Container } from 'react-composite-pages';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     const { username } = url.parse(req.url, true).query;
@@ -12,7 +13,7 @@ export default (req, res, callback) => {
     const actions = bindActionCreators(actionCreators, store.dispatch);
 
     callback(
-        React.createClass({
+        ReactCreateClass({
             render() {
                 return (
                     <Container

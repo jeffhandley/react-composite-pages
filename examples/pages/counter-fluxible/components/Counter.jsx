@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default React.createClass({
     propTypes: {
-        increment: React.PropTypes.func.isRequired,
-        value: React.PropTypes.number.isRequired
+        increment: PropTypes.func.isRequired,
+        value: PropTypes.number.isRequired
     },
 
     handleIncrement() {

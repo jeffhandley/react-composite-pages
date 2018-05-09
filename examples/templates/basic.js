@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Footer from './components/Footer';
 import { PageState, PageClients, renderTemplate } from 'react-composite-pages';
@@ -8,9 +9,9 @@ export default (req, res, callback) => {
         React.createClass({
             // Define body and footer element properties for the template
             propTypes: {
-                body: React.PropTypes.element.isRequired,
-                footer: React.PropTypes.element,
-                title: React.PropTypes.string.isRequired
+                body: PropTypes.element.isRequired,
+                footer: PropTypes.element,
+                title: PropTypes.string.isRequired
             },
 
             getDefaultProps() {

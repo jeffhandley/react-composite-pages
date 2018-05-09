@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import withSideEffect from 'react-side-effect';
 
@@ -7,13 +8,13 @@ const _ = {
 
 const ContainerState = React.createClass({
     propTypes: {
-        id: React.PropTypes.string.isRequired,
-        state: React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.bool,
-            React.PropTypes.number,
-            React.PropTypes.object,
-            React.PropTypes.string
+        id: PropTypes.string.isRequired,
+        state: PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.bool,
+            PropTypes.number,
+            PropTypes.object,
+            PropTypes.string
         ])
     },
 

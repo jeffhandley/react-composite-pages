@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const _ = {
@@ -8,8 +9,8 @@ export default React.createClass({
     displayName: 'PageState',
 
     propTypes: {
-        id: React.PropTypes.string,
-        state: React.PropTypes.object
+        id: PropTypes.string,
+        state: PropTypes.object
     },
 
     getDefaultProps() {

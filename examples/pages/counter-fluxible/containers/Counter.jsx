@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Counter from '../components/Counter';
 import counterStore from '../counterStore';
@@ -15,7 +16,7 @@ const ConnectedCounter = connectToStores(Counter, [ counterStore ], mapStoresToP
 
 export default React.createClass({
     propTypes: {
-        context: React.PropTypes.object.isRequired
+        context: PropTypes.object.isRequired
     },
 
     render() {

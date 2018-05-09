@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Footer from './components/Footer';
 import { PageState, PageClients, renderTemplate } from 'react-composite-pages';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     // We could perform async operations for loading the template
     callback(
-        React.createClass({
+        ReactCreateClass({
             // Define body and footer element properties for the template
             propTypes: {
                 body: PropTypes.element.isRequired,

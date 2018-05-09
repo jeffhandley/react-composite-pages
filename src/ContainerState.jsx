@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import withSideEffect from 'react-side-effect';
+import ReactCreateClass from 'create-react-class';
 
 const _ = {
     isUndefined: require('lodash/isUndefined')
 };
 
-const ContainerState = React.createClass({
+const ContainerState = ReactCreateClass({
     propTypes: {
         id: PropTypes.string.isRequired,
         state: PropTypes.oneOfType([

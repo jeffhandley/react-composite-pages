@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../components/Header';
 import actionCreators from '../actionCreators';
 import { connect, Provider } from 'react-redux';
+import ReactCreateClass from 'create-react-class';
 
 const mapStateToProps = (state) => ({
     username: state
@@ -10,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 const ConnectedHeader = connect(mapStateToProps, actionCreators)(Header);
 
-export default React.createClass({
+export default ReactCreateClass({
     propTypes: {
         store: PropTypes.object.isRequired
     },

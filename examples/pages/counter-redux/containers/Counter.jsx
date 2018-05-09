@@ -3,6 +3,7 @@ import React from 'react';
 import Counter from '../components/Counter';
 import actionCreators from '../actionCreators';
 import { connect, Provider } from 'react-redux';
+import ReactCreateClass from 'create-react-class';
 
 const mapStateToProps = (state) => ({
     value: state
@@ -10,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 const ConnectedCounter = connect(mapStateToProps, actionCreators)(Counter);
 
-export default React.createClass({
+export default ReactCreateClass({
     propTypes: {
         store: PropTypes.object.isRequired
     },

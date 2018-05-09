@@ -5,6 +5,7 @@ import reducers from './reducers';
 import actionCreators from './actionCreators';
 import { bindActionCreators, createStore } from 'redux';
 import { Container } from 'react-composite-pages';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     const { to = 0, template = 'basic' } = url.parse(req.url, true).query;
@@ -15,7 +16,7 @@ export default (req, res, callback) => {
 
     loadTemplate(req, res, (Template, templateActions) => {
         callback(
-            React.createClass({
+            ReactCreateClass({
                 render() {
                     return (
                         <Template

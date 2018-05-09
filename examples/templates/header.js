@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import header from './components/header';
 import template from './basic';
+import ReactCreateClass from 'create-react-class';
 
 export default (req, res, callback) => {
     header(req, res, (Header, headerActions) => {
@@ -9,7 +10,7 @@ export default (req, res, callback) => {
 
         template(req, res, (Template, templateActions) => {;
             callback(
-                React.createClass({
+                ReactCreateClass({
                     propTypes: {
                         body: PropTypes.element.isRequired
                     },

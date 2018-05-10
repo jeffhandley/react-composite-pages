@@ -1,5 +1,14 @@
 # Change Log
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/jeffhandley/react-composite-pages/compare/0.3.3...0.3.4) (2018-05-10)
+
+
+
+# Change Log
+
 ## 0.3.3
 
 Update `getContainerState` to guard against `window.ContainerState` being null or undefined.

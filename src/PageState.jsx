@@ -1,15 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ReactCreateClass from 'create-react-class';
 
 const _ = {
 	isUndefined: require('lodash/isUndefined')
 };
 
-export default React.createClass({
+export default ReactCreateClass({
     displayName: 'PageState',
 
     propTypes: {
-        id: React.PropTypes.string,
-        state: React.PropTypes.object
+        id: PropTypes.string,
+        state: PropTypes.object
     },
 
     getDefaultProps() {

@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import withSideEffect from 'react-side-effect';
+import ReactCreateClass from 'create-react-class';
 
 const _ = {
     uniq: require('lodash/uniq')
 };
 
-const ContainerClient = React.createClass({
+const ContainerClient = ReactCreateClass({
     propTypes: {
-        src: React.PropTypes.string.isRequired
+        src: PropTypes.string.isRequired
     },
 
     render() {
